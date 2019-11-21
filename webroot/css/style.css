@@ -369,6 +369,14 @@ button {
   padding: 14px;
 }
 
+.list-forum_information {
+  list-style: none;
+}
+
+.list-forum_information li {
+  padding: 14px;
+}
+
 .info-msg,
 .success-msg,
 .warning-msg,

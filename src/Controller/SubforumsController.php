@@ -23,5 +23,11 @@ class SubforumsController extends AppController
                 ->group(['threads.id']);
         }]]);
         $this->set(compact('subforum'));
+
+        $recent_activity = $this->Threads->find('all')->contain(['Users']);
+        $recent_activity
+            ->order(['lastpost_date'  => 'DESC'])
+            ->limit(10);
+        $this->set('recent_activity', $recent_activity);
     }
 }

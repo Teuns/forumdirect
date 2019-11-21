@@ -40,7 +40,15 @@ function count_posts($count, $item)
     <div class="box">
         <div class="head1">Forum Information</div>
         <div class="box_stuff">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lorem vitae lacus pretium pretium. Integer cursus, magna eu ornare hendrerit, risus dolor maximus nulla, id sollicitudin enim tellus vitae purus. Proin volutpat leo in tempor aliquam. Mauris congue consequat purus vel condimentum. Donec sagittis risus eget ligula viverra, eu lacinia odio pulvinar. Ut in molestie purus. Integer vel diam rutrum, vulputate tortor nec, auctor ipsum. Suspendisse eleifend, turpis nec aliquam condimentum, augue tellus dapibus sapien, id tristique urna ex eget urna. Mauris vestibulum quam eleifend, tincidunt velit volutpat, imperdiet massa. Proin felis nunc, ornare vel convallis id, tempor sit amet nulla. Aenean auctor aliquet vestibulum. Nulla vehicula felis vel metus mattis fermentum. Maecenas eget egestas ligula, id condimentum nisl. Nulla vel suscipit quam.
+            <ul class="list-forum_information">
+                <li>Online users: -</li>
+                <li>Roles: <b>Administrator</b> <b>Member</b></li>
+                <li>
+                    <span> - Members</span>
+                    <span> - Threads</span>
+                    <span> - Posts</span>
+                </li>
+            </ul>
         </div>
     </div>
     <br />
