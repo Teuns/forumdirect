@@ -6,7 +6,7 @@
 ?>
 <div id="bit-80">
     <?php $len = count($subforum->threads); ?>
-    <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id], ['class' => 'float-right']) ?><?php endif; ?></div>
+    <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id], ['class' => 'float-right button']) ?><?php endif; ?></div>
         <div class="catstuff">
             <?php for ($i = 0; $i < $len; $i++): ?>
             <ul>

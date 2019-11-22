@@ -44,7 +44,7 @@
                                 <?php endif; ?>
                             </a>
                             <div class="dropdown-content">
-                                <a href="#">UCP</a>
+                                <a href="<?= $this->Url->build(["controller" => "Users", "action" => "index"]); ?>">UCP</a>
                                 <a href="#">Upload Avatar</a>
                                 <a href="#">Change Signature</a>
                                 <a href="#">Logout</a>

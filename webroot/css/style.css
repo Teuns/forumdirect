@@ -377,6 +377,22 @@ button {
   float: right;
 }
 
+.float-right.button {
+  font-size: .6rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  border-radius: 0;
+  padding: .85em 1em;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #798189;
+}
+
 .list-recent_activity {
   list-style: none;
 }
@@ -459,6 +475,7 @@ ul.breadcrumb li a:hover {
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .comments-section {
@@ -486,6 +503,10 @@ ul.breadcrumb li a:hover {
   text-align: center;
 }
 
+.comment-role {
+  font-size: 14px;
+}
+
 .comment-avatar {
   -webkit-border-radius: 100px;
   -moz-border-radius: 100px;
@@ -498,6 +519,7 @@ ul.breadcrumb li a:hover {
   margin: 0 auto;
   width: 100px;
   height: 100px;
+  margin-bottom: 1rem;
 }
 
 .comment-text {

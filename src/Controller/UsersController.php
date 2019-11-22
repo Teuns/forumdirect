@@ -16,7 +16,7 @@ class UsersController extends AppController
 
     public function index()
     {
-        $this->set('users', $this->Users->find('all'));
+        $this->set('user', $this->Auth->user());
     }
 
     public function view($id)
