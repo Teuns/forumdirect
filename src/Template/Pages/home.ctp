@@ -1,3 +1,11 @@
+<?php $this->assign('title', 'Forum overview'); ?>
+
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => 'Forum overview']
+    ]);
+?>
+
 <?php
 function count_posts($count, $item)
 {

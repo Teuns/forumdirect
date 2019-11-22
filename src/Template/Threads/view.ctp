@@ -1,3 +1,9 @@
+<?php $this->assign('title', $thread->title); ?>
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => $thread->title]
+    ]);
+?>
 <div class="box">
     <div class="head1"><?= h($thread->title) ?></div>
     <div class="box_stuff">

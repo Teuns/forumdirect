@@ -1,3 +1,9 @@
+<?php $this->assign('title', $subforum->title); ?>
+<?php
+    $this->Breadcrumbs->add([
+        ['title' => $subforum->title]
+    ]);
+?>
 <div id="bit-80">
     <?php $len = count($subforum->threads); ?>
     <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id], ['class' => 'float-right']) ?><?php endif; ?></div>

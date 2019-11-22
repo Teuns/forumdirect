@@ -57,14 +57,23 @@
         </div>
 
         <div id="main_crumbs" class="wrap">
-            Breadcrumb
+            <?php
+                $this->Breadcrumbs->prepend(
+                    'Home',
+                    '/'
+                );
+
+                echo $this->Breadcrumbs->render(
+                    ['class' => 'breadcrumb']
+                );
+            ?>
         </div>
     </div>
     <div id="main_content" class="wrap">
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
-    <footer>
-    </footer>
+    <div style="clear:both;"></div>
+    <div class="footer"><div class="wrap">Copyright &copy; ForumDirect. All rights reserved.</div></div>
 </body>
 </html>

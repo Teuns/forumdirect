@@ -5,8 +5,24 @@
   padding: 0;
 }
 
-body { font-family: 'Open Sans', sans-serif;
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body { 
+  font-family: 'Open Sans', sans-serif;
   background-color: #eaecf0;
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
 }
 
 a:link, a:hover, a:visited {
@@ -377,6 +393,33 @@ button {
   padding: 14px;
 }
 
+ul.breadcrumb {
+  padding: 10px 16px;
+  list-style: none;
+  background: white;
+}
+
+ul.breadcrumb li {
+  display: inline;
+  font-size: 14px;
+}
+
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  text-decoration: underline;
+}
+
 .info-msg,
 .success-msg,
 .warning-msg,
@@ -432,7 +475,7 @@ button {
 }
 
 .comment:not(:last-child) {
-  box-shadow: 0px 1px 1px -1px black;
+  box-shadow: 0px 1px 1px -1px #aeaec6;
 }
 
 .comment.response {
@@ -651,4 +694,14 @@ button {
   padding: 2px 16px;
   background-color: #798189;
   color: white;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #798189;
+  color: #fff;
 }
