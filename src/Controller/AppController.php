@@ -16,7 +16,6 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
-use Cake\I18n\Time;
 
 /**
  * Application Controller
@@ -70,9 +69,9 @@ class AppController extends Controller
             $this->set('userId', $this->Auth->user('id'));
             $this->set('role', $this->Auth->user('role'));
 
-            $last_login_query = $this->Users->query();
-            $last_login_query->update()
-                ->set(['last_login' => Time::now()])
+            $last_seen_query = $this->Users->query();
+            $last_seen_query->update()
+                ->set(['last_seen' => date('Y-m-d H:i:s')])
                 ->where(['id' => $this->Auth->user('id')])
                 ->execute();
         } else {
@@ -102,7 +101,7 @@ class AppController extends Controller
             }]);
         $this->set('forums', $forums);
 
-        $online_users = $this->Users->find('all')->where(['last_login <= NOW() - INTERVAL 15 MINUTE']);
+        $online_users = $this->Users->find('all')->where(['last_seen > NOW() - INTERVAL 15 MINUTE']);
         $this->set('online_users', $online_users);
 
         $total_users = $this->Users->find('all')->count();

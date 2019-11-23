@@ -60,7 +60,7 @@ function count_posts($count, $item)
                 }
                 $onlineUsers .= $onlineUsersLastArr;
                 ?>
-                <li>Online users: <?= $onlineUsers ? $onlineUsers : '-' ?></li>
+                <li>Online users (in the last 15 minutes): <?= $onlineUsers ? $onlineUsers : '-' ?></li>
                 <li>Roles: <b>Administrator</b> <b>Moderator</b> <b>Member</b> <b>Banned</b></li>
                 <li>
                     <span> <?= $total_users ?> Members</span>

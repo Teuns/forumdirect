@@ -125,7 +125,6 @@ a:hover {
 }
 
 .dropdown {
-  position: relative;
   display: inline-block;
 }
 
@@ -188,6 +187,21 @@ a:hover {
 }
 
 @media screen and (max-width: 767px) {
+  #main_nav {
+    min-height: 50px;
+    height: unset;
+    overflow: auto;
+  }
+
+  #main_content {
+    width: unset;
+  }
+
+  .wrap {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
   #sglogo {
     line-height: unset;
   }
