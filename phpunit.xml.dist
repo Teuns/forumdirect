@@ -13,7 +13,11 @@
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
         <testsuite name="app">
-            <directory>tests/TestCase/</directory>
+            <file>tests/TestCase/Model/Table/ForumsTableTest.php</file>
+            <file>tests/TestCase/Model/Table/SubforumsTableTest.php</file>
+            <file>tests/TestCase/Controller/PagesControllerTest.php</file>
+            <file>tests/TestCase/Controller/ThreadsControllerTest.php</file>
+            <file>tests/TestCase/Controller/PostsControllerTest.php</file>
         </testsuite>
         <!-- Add plugin test suites here. -->
     </testsuites>

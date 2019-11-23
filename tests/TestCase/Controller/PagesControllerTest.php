@@ -28,17 +28,15 @@ use Cake\View\Exception\MissingTemplateException;
 class PagesControllerTest extends IntegrationTestCase
 {
     /**
-     * testMultipleGet method
+     * Fixtures
      *
-     * @return void
+     * @var array
      */
-    public function testMultipleGet()
-    {
-        $this->get('/');
-        $this->assertResponseOk();
-        $this->get('/');
-        $this->assertResponseOk();
-    }
+    public $fixtures = [
+        'app.Posts',
+        'app.Users',
+        'app.Threads'
+    ];
 
     /**
      * testDisplay method
@@ -49,7 +47,6 @@ class PagesControllerTest extends IntegrationTestCase
     {
         $this->get('/pages/home');
         $this->assertResponseOk();
-        $this->assertResponseContains('CakePHP');
         $this->assertResponseContains('<html>');
     }
 
