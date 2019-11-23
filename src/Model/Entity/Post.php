@@ -29,11 +29,8 @@ class Post extends Entity
      */
     protected $_accessible = [
         'body' => true,
-        'user_id' => true,
         'thread_id' => true,
         'created' => true,
-        'modified' => true,
-        'user' => true,
-        'thread' => true
+        'modified' => true
     ];
 }

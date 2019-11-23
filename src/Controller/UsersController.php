@@ -8,6 +8,13 @@ use Cake\Http\Exception\BadRequestException;
 
 class UsersController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadModel('Posts');
+    }
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -16,7 +23,15 @@ class UsersController extends AppController
 
     public function index()
     {
+        $total_posts = $this->Posts->findByUserId($this->Auth->user('id'))->count();
+        $total_threads = $this->Threads->findByUserId($this->Auth->user('id'))->count();
+
+        $last_threads = $this->Threads->findByUserId($this->Auth->user('id'));
+
         $this->set('user', $this->Auth->user());
+        $this->set('total_posts', $total_posts);
+        $this->set('total_threads', $total_threads);
+        $this->set('last_threads', $last_threads);
     }
 
     public function view($id)
@@ -37,7 +52,7 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Deze gegevens zijn niet bij ons bekend'));
+            $this->Flash->error(__('The details are unknown to us'));
         }
     }
 
@@ -46,6 +61,12 @@ class UsersController extends AppController
         if ($this->request->is(['post', 'delete']) !== true) {
             throw new BadRequestException;
         }
+
+        $last_login_query = $this->Users->query();
+        $last_login_query->update()
+            ->set(['last_login' => null])
+            ->where(['id' => $this->Auth->user('id')])
+            ->execute();
 
         return $this->response
             ->withLocation($this->Auth->logout());
@@ -61,12 +82,47 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('De gebruiker is opgeslagen'));
+                $this->Flash->success(__('The user has been saved'));
                 return $this->redirect(['action' => 'add']);
             }
-            $this->Flash->error(__('Er is een fout opgetreden.'));
+            $this->Flash->error(__('An error occurred'));
         }
         $this->set('user', $user);
     }
 
+    public function editAvatar()
+    {
+        $user = $this->Users->get($this->Auth->user('id'));
+        if ($this->request->is(['post', 'put'])) {
+            $image = $this->request->getData('image');
+            if (move_uploaded_file($image['tmp_name'],WWW_ROOT . '/img/' . $user->id . '-' . time() . '-' .$image['name'])) {
+                $user->avatar = '/img/' . $user->id . '-' . time() . '-' .$image['name'];
+                if ($this->Users->save($user)) {
+                    $this->Auth->setUser($user->toArray());
+                    $this->Flash->success(__('The avatar image has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+            } else {
+                $this->Flash->success(__('Avatar upload unsuccessful'));
+            }
+            $this->Flash->error(__('The avatar image could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function editProfile()
+    {
+        $user = $this->Users->get($this->Auth->user('id'));
+        if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Users->save($user)) {
+                $this->Auth->setUser($user->toArray());
+                $this->Flash->success(__('The user has been saved'));
+                return $this->redirect(['action' => 'add']);
+            }
+            $this->Flash->error(__('An error occurred'));
+        }
+        $this->set('user', $user);
+    }
 }

@@ -6,20 +6,20 @@
 ?>
 <div id="bit-80">
     <?php $len = count($subforum->threads); ?>
-    <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id], ['class' => 'float-right button']) ?><?php endif; ?></div>
+    <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id, $subforum->title], ['class' => 'float-right button']) ?><?php endif; ?></div>
         <div class="catstuff">
             <?php for ($i = 0; $i < $len; $i++): ?>
             <ul>
                 <li class="icon"><i class="fa fa-comment icon0"></i></li>
                 <li class="desc">
-                    <div class="board_link"><a  href="../../threads/<?= h($subforum->threads[$i]->id); ?>-<?= h($subforum->threads[$i]->slug); ?>"><?= h($subforum->threads[$i]->title); ?></a></div>
+                    <div class="board_link"><a  href="../../../threads/<?= h($subforum->threads[$i]->id); ?>-<?= h($subforum->threads[$i]->slug); ?>"><?= h($subforum->threads[$i]->title); ?></a></div>
                     <div class="board_desc">
                         by <?= $subforum->threads[$i]->users['username']; ?>
                     </div>
                 </li>
                 <li class="posts"> <?= count($subforum->threads); ?> topics<br><?= $subforum->threads[$i]->posts_total; ?> posts</li>
                 <li class="lastpost">
-                    <a href="../../threads/<?= $subforum->threads[0]->id; ?>-<?= $subforum->threads[0]->slug; ?>"><?= $subforum->threads[0]->title; ?></a>
+                    <a href="../../../threads/<?= $subforum->threads[0]->id; ?>-<?= $subforum->threads[0]->slug; ?>"><?= $subforum->threads[0]->title; ?></a>
                     <p>by <?= $subforum->threads[0]->users['username']; ?></p>
                     <p>created at <?= $subforum->threads[0]->lastpost_date; ?></p>
                 </li>
@@ -41,7 +41,7 @@
                 <?php $lastElementKey = $recent_activity->count() - 1 ?>
                 <?php foreach( $recent_activity as $key => $threads ): ?>
                     <li>
-                        <a href="../../threads/<?= $threads->id; ?>-<?= $threads->slug; ?>">
+                        <a href="../../threads/<?= $threads->id; ?>-<?= $threads->slug; ?>?action=lastpost">
                             <?= $this->Text->truncate(h($threads->title), 75, array('ending' => '...', 'exact' => true)); ?>
                         </a>
                         <p>

@@ -67,13 +67,19 @@ return [
         [
             'role' => 'user',
             'controller' => 'Users',
-            'action' => ['logout'],
+            'action' => ['editProfile', 'editAvatar', 'logout'],
         ],
 
         [
             'role' => 'user',
             'controller' => ['Threads', 'Posts'],
             'action' => ['add'],
+            'allowed' => function(array $user, $role, Request $request) {
+                $threadId = Hash::get($request->params, 'pass.0');
+                $thread = TableRegistry::get('Threads')->get($threadId);
+
+                return !$thread->closed;
+            }
         ],
 
         [
@@ -83,9 +89,10 @@ return [
             'allowed' => function(array $user, $role, Request $request) {
                 $postId = Hash::get($request->params, 'pass.0');
                 $post = TableRegistry::get('Posts')->get($postId);
+                $thread = TableRegistry::get('Threads')->get($post->thread_id);
                 $userId = Hash::get($user, 'id');
                 if (!empty($post->user_id) && !empty($userId)) {
-                    return $post->user_id === $userId;
+                    return !$thread->closed && $post->user_id === $userId;
                 }
                 return false;
             }
@@ -100,7 +107,7 @@ return [
                 $thread = TableRegistry::get('Threads')->get($postId);
                 $userId = Hash::get($user, 'id');
                 if (!empty($thread->user_id) && !empty($userId)) {
-                    return $thread->user_id === $userId;
+                    return !$thread->closed && $thread->user_id === $userId;
                 }
                 return false;
             }

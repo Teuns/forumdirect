@@ -31,9 +31,7 @@ class Thread extends Entity
         'title' => true,
         'slug' => true,
         'body' => true,
-        'user_id' => true,
         'created' => true,
-        'modified' => true,
-        'user' => true
+        'modified' => true
     ];
 }

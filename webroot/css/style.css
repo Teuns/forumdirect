@@ -182,6 +182,11 @@ a:hover {
   clear: right;
 }
 
+#bit-20.sidebar-left {
+  padding-left: 0; 
+  padding-right: 20px;
+}
+
 @media screen and (max-width: 767px) {
   #sglogo {
     line-height: unset;
@@ -219,6 +224,10 @@ a:hover {
   #bit-20 {
     width: 100%;
     padding: 0;
+  }
+
+  #bit-20.sidebar-left {
+    padding-right: 0;
   }
 }
 
@@ -434,6 +443,136 @@ ul.breadcrumb li a {
 ul.breadcrumb li a:hover {
   color: #01447e;
   text-decoration: underline;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    color: #333;
+    background-color: #333;
+}
+
+.vertical-menu {
+  font-size: 14px;
+  list-style: none;
+}
+
+.vertical-menu li {
+  padding: 14px;
+}
+
+#last_threads {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#last_threads  td, #last_threads  th {
+  padding: 8px;
+}
+
+#last_threads tr:nth-child(even){background-color: #f2f2f2;}
+
+#last_threads tr:hover {background-color: #ddd;}
+
+#last_threads th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+#users {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#users  td, #users  th {
+  padding: 8px;
+}
+
+#users tr:nth-child(even){background-color: #f2f2f2;}
+
+#users tr:hover {background-color: #ddd;}
+
+#users th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+#users {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#threads  td, #threads  th {
+  padding: 8px;
+}
+
+#threads {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#threads  td, #threads  th {
+  padding: 8px;
+}
+
+#threads tr:nth-child(even){background-color: #f2f2f2;}
+
+#threads tr:hover {background-color: #ddd;}
+
+#threads th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+#threads {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#threads  td, #threads  th {
+  padding: 8px;
+}
+
+#posts tr:nth-child(even){background-color: #f2f2f2;}
+
+#posts tr:hover {background-color: #ddd;}
+
+#posts th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+#posts {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#posts  td, #posts  th {
+  padding: 8px;
+}
+
+#posts tr:nth-child(even){background-color: #f2f2f2;}
+
+#posts tr:hover {background-color: #ddd;}
+
+#posts th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
 }
 
 .info-msg,

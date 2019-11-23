@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\I18n\Time;
 
 /**
  * Application Controller
@@ -59,11 +60,21 @@ class AppController extends Controller
             ]
         ]);
 
+        $this->loadModel('Users');
+        $this->loadModel('Threads');
+        $this->loadModel('Posts');
+
         if ($this->Auth->user()) {
             $this->set('loggedIn', true);
             $this->set('username', $this->Auth->user('username'));
             $this->set('userId', $this->Auth->user('id'));
             $this->set('role', $this->Auth->user('role'));
+
+            $last_login_query = $this->Users->query();
+            $last_login_query->update()
+                ->set(['last_login' => Time::now()])
+                ->where(['id' => $this->Auth->user('id')])
+                ->execute();
         } else {
             $this->set('loggedIn', false);
         }
@@ -90,6 +101,17 @@ class AppController extends Controller
                     ->group(['threads.id']);
             }]);
         $this->set('forums', $forums);
+
+        $online_users = $this->Users->find('all')->where(['last_login <= NOW() - INTERVAL 15 MINUTE']);
+        $this->set('online_users', $online_users);
+
+        $total_users = $this->Users->find('all')->count();
+        $total_threads = $this->Threads->find('all')->count();
+        $total_posts = $this->Posts->find('all')->count();
+
+        $this->set('total_users', $total_users);
+        $this->set('total_threads', $total_threads);
+        $this->set('total_posts', $total_posts);
 
         $recent_activity = $this->Threads->find('all')->contain(['Users']);
         $recent_activity

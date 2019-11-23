@@ -14,6 +14,7 @@ class CreateThreadsTable extends AbstractMigration
             ->addColumn('subforum_id', 'integer')
             ->addColumn('lastpost_date', 'datetime')
             ->addColumn('lastpost_uid', 'integer')
+            ->addColumn('closed', 'integer', ['default' => 0])
             ->addColumn('created', 'datetime', ['default' => 'CURRENT_TIMESTAMP'])
             ->addColumn('modified', 'datetime', ['null' => true])
             ->save();

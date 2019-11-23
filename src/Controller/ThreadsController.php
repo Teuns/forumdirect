@@ -20,6 +20,7 @@ class ThreadsController extends AppController
         parent::initialize();
 
         $this->loadModel('Posts');
+        $this->loadModel('Subforums');
     }
 
     /**
@@ -56,6 +57,17 @@ class ThreadsController extends AppController
         $currentPage = $this->request->getQuery('page');
 
         $this->set('currPage', $currentPage);
+
+        if ($this->request->query('action') == 'lastpost' && $posts->count()) {
+            $total_pages = $this->Paginator->getPagingParams()['Posts']['pageCount'];
+            $last_pid = $this->Posts->find('all')->where(['thread_id' => $id])->last()->id;
+
+            if ($total_pages > 1) {
+                return $this->redirect('/threads/' . $thread->id . '-' . $thread->slug . '?page=' . $total_pages . '#pid' . $last_pid);
+            } else {
+                return $this->redirect('/threads/' . $thread->id . '-' . $thread->slug . '#pid' . $last_pid);
+            }
+        }
     }
 
     /**
@@ -65,6 +77,14 @@ class ThreadsController extends AppController
      */
     public function add($subforumId)
     {
+        $subforum = $this->Subforums->findById($subforumId);
+
+        if (!$subforum->count()) {
+            $this->Flash->error(__('The subforum does not exist.'));
+
+            return $this->redirect('/');
+        }
+
         $thread = $this->Threads->newEntity();
 
         if ($this->request->is('post')) {
@@ -106,15 +126,20 @@ class ThreadsController extends AppController
         $thread = $this->Threads->get($id, [
             'contain' => []
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $thread['lastpost_date'] = null;
             $thread = $this->Threads->patchEntity($thread, $this->request->getData());
+
             if ($this->Threads->save($thread)) {
                 $this->Flash->success(__('The thread has been saved.'));
 
                 return $this->redirect('/threads/'. $thread->id. '-'. $thread->slug);
             }
+
             $this->Flash->error(__('The thread could not be saved. Please, try again.'));
         }
+
         $users = $this->Threads->Users->find('list', ['limit' => 200]);
         $this->set(compact('thread', 'users'));
     }

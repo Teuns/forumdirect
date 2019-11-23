@@ -23,7 +23,7 @@ function count_posts($count, $item)
                     <ul>
                         <li class="icon"><i class="fa fa-comment icon0"></i></li>
                         <li class="desc">
-                            <div class="board_link"><a  href="subforums/view/<?= h($forum->subforums[$i]->id); ?>"><?= h($forum->subforums[$i]->title); ?></a></div>
+                            <div class="board_link"><a  href="subforums/view/<?= h($forum->subforums[$i]->id); ?>/<?= h($forum->subforums[$i]->title); ?>"><?= h($forum->subforums[$i]->title); ?></a></div>
                             <div class="board_desc">
                                 <?= h($forum->subforums[$i]->description); ?>
                             </div>
@@ -49,12 +49,23 @@ function count_posts($count, $item)
         <div class="head1">Forum Information</div>
         <div class="box_stuff">
             <ul class="list-forum_information">
-                <li>Online users: -</li>
-                <li>Roles: <b>Administrator</b> <b>Member</b></li>
+                <?php $onlineUsersArr = array(); ?>
+                <?php foreach($online_users as $user): ?>
+                <?php $onlineUsersArr[] = "<a href='#'>".$user->username."</a>"; ?>
+                <?php endforeach; ?>
+                <?php $onlineUsersLastArr = array_pop($onlineUsersArr);
+                $onlineUsers = implode(', ', $onlineUsersArr);
+                if ($onlineUsers) {
+                    $onlineUsers .= ' and ';
+                }
+                $onlineUsers .= $onlineUsersLastArr;
+                ?>
+                <li>Online users: <?= $onlineUsers ? $onlineUsers : '-' ?></li>
+                <li>Roles: <b>Administrator</b> <b>Moderator</b> <b>Member</b> <b>Banned</b></li>
                 <li>
-                    <span> - Members</span>
-                    <span> - Threads</span>
-                    <span> - Posts</span>
+                    <span> <?= $total_users ?> Members</span>
+                    <span> <?= $total_threads ?> Threads</span>
+                    <span> <?= $total_posts ?> Posts</span>
                 </li>
             </ul>
         </div>
@@ -70,7 +81,7 @@ function count_posts($count, $item)
                 <?php $lastElementKey = $recent_activity->count() - 1 ?>
                 <?php foreach( $recent_activity as $key => $threads ): ?>
                     <li>
-                        <a href="threads/<?= $threads->id; ?>-<?= $threads->slug; ?>">
+                        <a href="threads/<?= $threads->id; ?>-<?= $threads->slug; ?>?action=lastpost">
                             <?= $this->Text->truncate(h($threads->title), 75, array('ending' => '...', 'exact' => true)); ?>
                         </a>
                         <p>

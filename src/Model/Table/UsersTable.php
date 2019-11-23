@@ -10,13 +10,24 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         return $validator
-            ->notEmpty('username', 'Een gebruikersnaam is verplicht')
+            ->notEmpty('username', 'An username is required')
+            ->add('username', [
+                'length' => [
+                    'rule' => ['minLength', 3],
+                    'message' => 'Passwords need to be at least 10 characters long',
+                ]
+            ])
             ->notEmpty('password', 'Een wachtwoord is verplicht')
+            ->add('password', [
+                'length' => [
+                    'rule' => ['minLength', 8],
+                    'message' => 'Passwords need to be at least 8 characters long',
+                ]
+            ])
             ->add('password', [
                 'compare' => [
                     'rule' => ['compareWith', 'confirm_password']
                 ]
             ]);
     }
-
 }

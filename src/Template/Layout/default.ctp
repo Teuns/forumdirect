@@ -36,6 +36,7 @@
                 <ul>
                     <li><a href="<?= $this->Url->build('/'); ?>">Home</a></li>
                     <?php if(isset($role) && $role == 'admin'): ?><li><a href="#">Admin</a></li><?php endif; ?>
+                    <?php if(isset($role) && $role == 'admin' || isset($role) && $role == 'mod'): ?><li><a href="<?= $this->Url->build(["controller" => "Mod", "action" => "index"]); ?>">Mod</a></li><?php endif; ?>
                     <li>
                         <div class="dropdown">
                             <a href="#">
@@ -45,9 +46,9 @@
                             </a>
                             <div class="dropdown-content">
                                 <a href="<?= $this->Url->build(["controller" => "Users", "action" => "index"]); ?>">UCP</a>
-                                <a href="#">Upload Avatar</a>
+                                <a href="<?= $this->Url->build(["controller" => "Users", "action" => "editAvatar"]); ?>">Upload Avatar</a>
                                 <a href="#">Change Signature</a>
-                                <a href="#">Logout</a>
+                                <?= $this->Form->postLink(__('Logout'), ['controller' => 'users', 'action' => 'logout'], ['confirm' => __('Are you sure you want to logout?')]) ?>
                             </div>
                         </div>
                     </li>
