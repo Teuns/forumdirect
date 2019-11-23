@@ -1,4 +1,11 @@
 <?php
+
+define('MAINTENANCE', 0);
+if(MAINTENANCE > 0 && $_SERVER['REMOTE_ADDR'] != '172.69.55.56')
+{
+    require('maintenance.php'); die();
+}
+
 /**
  * The Front Controller for handling every request
  *

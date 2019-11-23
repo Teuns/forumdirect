@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
+use Cake\Validation\Validator;
 
 class UsersController extends AppController
 {
@@ -64,7 +65,7 @@ class UsersController extends AppController
 
         $last_login_query = $this->Users->query();
         $last_login_query->update()
-            ->set(['last_login' => null])
+            ->set(['last_seen' => null])
             ->where(['id' => $this->Auth->user('id')])
             ->execute();
 
@@ -92,19 +93,27 @@ class UsersController extends AppController
 
     public function editAvatar()
     {
+        $validator = new Validator();
+        $validator
+            ->add('image', 'file', [
+                'rule' => ['mimeType', ['image/jpeg', 'image/png']]
+            ]);
         $user = $this->Users->get($this->Auth->user('id'));
         if ($this->request->is(['post', 'put'])) {
             $image = $this->request->getData('image');
-            if (move_uploaded_file($image['tmp_name'],WWW_ROOT . '/img/' . $user->id . '-' . time() . '-' .$image['name'])) {
-                $user->avatar = '/img/' . $user->id . '-' . time() . '-' .$image['name'];
-                if ($this->Users->save($user)) {
-                    $this->Auth->setUser($user->toArray());
-                    $this->Flash->success(__('The avatar image has been saved.'));
+            $errors = $validator->errors($this->request->getData());
+            if (empty($errors)) {
+                if (move_uploaded_file($image['tmp_name'], WWW_ROOT . '/img/' . $user->id . '-' . time() . '-' . $image['name'])) {
+                    $user->avatar = '/img/' . $user->id . '-' . time() . '-' . $image['name'];
+                    if ($this->Users->save($user, ['validate' => 'avatar'])) {
+                        $this->Auth->setUser($user->toArray());
+                        $this->Flash->success(__('The avatar image has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
+                        return $this->redirect(['action' => 'index']);
+                    }
+                } else {
+                    $this->Flash->success(__('Avatar upload unsuccessful'));
                 }
-            } else {
-                $this->Flash->success(__('Avatar upload unsuccessful'));
             }
             $this->Flash->error(__('The avatar image could not be saved. Please, try again.'));
         }
