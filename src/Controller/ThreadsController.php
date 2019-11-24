@@ -56,7 +56,7 @@ class ThreadsController extends AppController
             'contain' => ['Users', 'Threads']
         ];
 
-        $posts = $this->paginate($this->Posts->find('all')->where(['thread_id' => $id]));
+        $posts = $this->paginate($this->Posts->find('all')->where(['thread_id' => $id])->order(['Posts.created' => 'ASC']));
 
         $this->set('thread', $thread);
         $this->set(compact('posts'));
