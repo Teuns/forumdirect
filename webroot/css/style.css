@@ -585,6 +585,20 @@ hr {
   color: white;
 }
 
+.button {
+  background: #333;
+  padding: 10px;
+  color: #fff;
+  display: inline-block;
+  font-size: .9rem;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.button.small {
+  padding: 5px;
+}
+
 .info-msg,
 .success-msg,
 .warning-msg,
@@ -679,7 +693,6 @@ hr {
   margin-bottom: 30px;
   font-size: 14px;
   line-height: 1.1;
-  overflow: auto;
 }
 
 .comment-text p {
@@ -749,7 +762,7 @@ hr {
 
 .comment-time-stamp {
   position: absolute;
-  bottom: 10px;
+  bottom: 5px;
   left: 180px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;

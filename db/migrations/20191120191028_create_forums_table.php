@@ -13,6 +13,6 @@ class CreateForumsTable extends AbstractMigration
 
     public function down()
     {
-
+        $this->dropTable('forums');
     }
 }

@@ -27,7 +27,7 @@ $this->Breadcrumbs->add([
                 <div class="comment-avatar-container">
                     <h2 class="comment-author"><?= h($user['username']); ?></h2>
                     <img class="comment-avatar" src="<?= $user['avatar']; ?>">
-                    <span class="comment-role"><?= $user['role']; ?></span>
+                    <span class="comment-role"><?= $user->roles_users[0]->role['name'] ?></span>
                 </div>
                 <div class="comment-text" style="overflow: unset;">
                     <ul>

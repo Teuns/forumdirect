@@ -18,6 +18,7 @@ class PostsController extends AppController
         parent::initialize();
 
         $this->loadModel('Threads');
+        $this->loadComponent('TinyAuth.AuthUser');
     }
 
     /**
@@ -88,6 +89,12 @@ class PostsController extends AppController
         $post = $this->Posts->get($id, [
             'contain' => []
         ]);
+
+        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+            $this->Flash->error(__('You cannot access this location'));
+            return $this->redirect('/');
+        }
+
         $thread = $this->Threads->get($post->thread_id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $post = $this->Posts->patchEntity($post, $this->request->getData());
@@ -114,6 +121,12 @@ class PostsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $post = $this->Posts->get($id);
+        
+        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+            $this->Flash->error(__('You cannot access this location'));
+            return $this->redirect('/');
+        }
+
         if ($this->Posts->delete($post)) {
             $this->Flash->success(__('The post has been deleted.'));
         } else {

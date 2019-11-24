@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Core\Configure;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
 use Cake\I18n\Time;
+use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Validation\Validator;
 use Cake\Mailer\Email;
@@ -18,6 +20,7 @@ class UsersController extends AppController
         parent::initialize();
 
         $this->loadModel('Posts');
+        $this->loadComponent('TinyAuth.AuthUser');
     }
 
     public function beforeFilter(Event $event)
@@ -35,7 +38,10 @@ class UsersController extends AppController
 
         $last_threads = $this->Threads->findByUserId($this->Auth->user('id'));
 
-        $this->set('user', $this->Auth->user());
+        $user = $this->Users->findById($this->Auth->user('id'))->contain(['roles_users.roles'])->first();
+
+        $this->set('user', $user);
+        $this->set('AuthUser', $this->AuthUser);
         $this->set('total_posts', $total_posts);
         $this->set('total_threads', $total_threads);
         $this->set('last_threads', $last_threads);
@@ -93,6 +99,13 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
+                $user_roles = TableRegistry::get('user_roles')->query();
+                $user_roles->insert(['user_id', 'role_id'])
+                    ->values([
+                        'user_id' => $user->id,
+                        'role_id' => 10
+                    ])
+                    ->execute();
                 $url = Router::Url(['controller' => 'users', 'action' => 'verify'], true) . '/' . $verifyToken;
                 $this->sendVerifyEmail($url, $user);
                 return $this->redirect(['action' => 'add']);
@@ -122,7 +135,11 @@ class UsersController extends AppController
         $user = $this->Users->find()->where(['verify_token' => $token])->first();
         $user->verify_token = null;
         $user->verified = 1;
-        $user->role = 'user';
+        $user_roles = TableRegistry::get('user_roles')->query();
+        $user_roles->update()
+            ->set(['role_id' => 9])
+            ->where(['id' => $user->id])
+            ->execute();
         if ($this->Users->save($user)) {
             $this->Auth->setUser($user->toArray());
             $this->Flash->success(__('The user has been verified'));

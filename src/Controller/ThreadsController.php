@@ -22,6 +22,7 @@ class ThreadsController extends AppController
 
         $this->loadModel('Posts');
         $this->loadModel('Subforums');
+        $this->loadComponent('TinyAuth.AuthUser');
     }
 
     /**
@@ -33,11 +34,11 @@ class ThreadsController extends AppController
      */
     public function view($slug = null, $id = null)
     {
-        $thread = $this->Threads->findBySlug($slug)->contain('Users')->first();
+        $thread = $this->Threads->findBySlug($slug)->contain('Users.roles_users.roles')->first();
 
         if ($thread->id !== $id) {
             $thread = $this->Threads->get($id, [
-                'contain' => ['Users']
+                'contain' => ['Users.roles_users.roles']
             ]);
         }
 
@@ -53,7 +54,7 @@ class ThreadsController extends AppController
 
         $this->paginate = [
             'limit' => 5,
-            'contain' => ['Users', 'Threads']
+            'contain' => ['Users.roles_users.roles', 'Threads']
         ];
 
         $posts = $this->paginate($this->Posts->find('all')->where(['thread_id' => $id])->order(['Posts.created' => 'ASC']));
@@ -134,6 +135,11 @@ class ThreadsController extends AppController
             'contain' => []
         ]);
 
+        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+            $this->Flash->error(__('You cannot access this location'));
+            return $this->redirect('/');
+        }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $thread = $this->Threads->patchEntity($thread, $this->request->getData());
 
@@ -161,6 +167,12 @@ class ThreadsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $thread = $this->Threads->get($id);
+
+        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+            $this->Flash->error(__('You cannot access this location'));
+            return $this->redirect('/');
+        }
+
         if ($this->Threads->delete($thread)) {
             $this->Flash->success(__('The thread has been deleted.'));
         } else {

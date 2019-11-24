@@ -12,10 +12,10 @@
                 <div class="comment-avatar-container">
                     <h2 class="comment-author"><?= h($thread->user->username) ?></h2>
                     <img class="comment-avatar" src="<?= $thread->user->avatar ?>" />
-                    <span class="comment-role"><?= $thread->user->role ?></span>
+                    <span class="comment-role"><?= $thread->user->roles_users[0]->role['name'] ?></span>
                 </div>
                 <?php $this->Markdown->Parsedown->setMarkupEscaped(true); ?>
-                <div class="comment-text"><span class="float-right"><a href="#">delete</a> <a href="javascript:openModal()">report</a></span><?= preg_replace('/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="/hashtag/$1">#$1</a>', $this->Markdown->parse($thread->body)); ?></div>
+                <div class="comment-text"><span class="float-right"><a href="#" class="button small">delete</a> <a href="javascript:openModal()" class="button small">report</a></span><?= preg_replace('/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="/hashtag/$1">#$1</a>', $this->Markdown->parse($thread->body)); ?></div>
                 <p class="comment-time-stamp"><?= $thread->created->i18nFormat('MMM dd, yyyy h:mm:ss a') ?> <?php if($thread->modified): ?> modified at <?= $thread->modified->i18nFormat('MMM dd, yyyy h:mm:ss a') ?> <?php endif; ?> <?php if($loggedIn && !$thread->closed && $userId == $thread->user_id || $loggedIn && $role == 'admin' || $loggedIn && $role == 'mod'): ?> <?= $this->Html->link('Edit', ['action' => 'edit', $thread->id]) ?> <?php endif; ?></p>
             </div>
         <?php endif; ?>
@@ -25,10 +25,10 @@
                 <div class="comment-avatar-container">
                     <h2 class="comment-author"><?= h($post->user->username) ?></h2>
                     <img class="comment-avatar" src="<?= $post->user->avatar ?>" />
-                    <span class="comment-role"><?= $post->user->role ?></span>
+                    <span class="comment-role"><?= $post->user->roles_users[0]->role['name']  ?></span>
                 </div>
                 <?php $this->Markdown->Parsedown->setMarkupEscaped(true); ?>
-                <div class="comment-text"><span class="float-right"><a href="#">delete</a> <a href="javascript:openModal()">report</a></span><?= preg_replace('/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="/hashtag/$1">#$1</a>', $this->Markdown->parse($post->body)); ?></div>
+                <div class="comment-text"><span class="float-right"><a href="#" class="button small">delete</a> <a href="javascript:openModal()" class="button small">report</a></span><?= preg_replace('/(?<!\S)#([0-9a-zA-Z]+)/', '<a href="/hashtag/$1">#$1</a>', $this->Markdown->parse($post->body)); ?></div>
                 <p class="comment-time-stamp"><?= $post->created->i18nFormat('MMM dd, yyyy h:mm:ss a') ?> <?php if($post->modified): ?> modified at <?= $post->modified->i18nFormat('MMM dd, yyyy h:mm:ss a') ?> <?php endif; ?> <?php if($loggedIn && !$thread->closed && $userId == $post->user_id || $loggedIn && $role == 'admin' || $loggedIn && $role == 'mod'): ?> <?= $this->Html->link('Edit', ['controller' => 'Posts', 'action' => 'edit', $post->id]) ?> <?php endif; ?></p>
             </div>
         <?php endforeach; ?>

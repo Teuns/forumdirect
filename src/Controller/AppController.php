@@ -46,11 +46,12 @@ class AppController extends Controller
         ]);
         $this->loadComponent('Flash');
 
+
         $this->loadComponent('Auth', [
-            'authorize' => ['CakeDC/Auth.SimpleRbac'],
+            'authorize' => ['TinyAuth.Tiny'],
             'loginRedirect' => [
                 'controller' => 'Pages',
-                'action' => 'index'
+                'action' => 'index',
             ],
             'logoutRedirect' => [
                 'controller' => 'Pages',
@@ -58,6 +59,8 @@ class AppController extends Controller
                 'home'
             ]
         ]);
+
+        $this->loadComponent('TinyAuth.AuthUser');
 
         $this->loadModel('Users');
         $this->loadModel('Threads');

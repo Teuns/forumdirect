@@ -15,6 +15,6 @@ class CreateSubForumsTable extends AbstractMigration
 
     public function down()
     {
-
+        $this->dropTable('subforums');
     }
 }

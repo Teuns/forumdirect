@@ -23,6 +23,6 @@ class CreateThreadsTable extends AbstractMigration
 
     public function down()
     {
-
+        $this->dropTable('threads');
     }
 }

@@ -34,6 +34,12 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
+        $this->addPlugin('TinyAuthBackend');
+
+        $this->addPlugin('TinyAuthBackend');
+
+        $this->addPlugin('TinyAuth');
+
         $this->addPlugin('CakeDC/Auth');
 
         $this->addPlugin('CakeDC/Auth');

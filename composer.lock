@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a1766055dae6c880bf29f458ce1511c",
+    "content-hash": "40988109f00be683c03af131f4c5f78f",
     "packages": [
         {
             "name": "aura/intl",
@@ -342,6 +342,223 @@
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
             "time": "2019-07-25T15:43:38+00:00"
+        },
+        {
+            "name": "dereuromark/cakephp-shim",
+            "version": "1.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-shim.git",
+                "reference": "0bfd0d4f24e42c6575c4bf7a273ffee184f8fef8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-shim/zipball/0bfd0d4f24e42c6575c4bf7a273ffee184f8fef8",
+                "reference": "0bfd0d4f24e42c6575c4bf7a273ffee184f8fef8",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.7.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "dereuromark/cakephp-ide-helper": "^0.13.11",
+                "fig-r/psr2r-sniffer": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Shim\\": "src/",
+                    "Shim\\Test\\Fixture\\": "tests/Fixture/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://www.dereuromark.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A CakePHP plugin to shim applications between major framework versions.",
+            "homepage": "https://github.com/dereuromark/cakephp-shim",
+            "keywords": [
+                "cakephp",
+                "helpers",
+                "plugin",
+                "shim"
+            ],
+            "time": "2019-08-14T13:57:29+00:00"
+        },
+        {
+            "name": "dereuromark/cakephp-tinyauth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-tinyauth.git",
+                "reference": "b226ee446efded84ac733eda1897706ce3ad311e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth/zipball/b226ee446efded84ac733eda1897706ce3ad311e",
+                "reference": "b226ee446efded84ac733eda1897706ce3ad311e",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.7.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "cakephp/authentication": "dev-master",
+                "cakephp/authorization": "dev-master",
+                "cakephp/debug_kit": "dev-master",
+                "composer/semver": "^1.5",
+                "dereuromark/composer-prefer-lowest": "^0.1.3",
+                "fig-r/psr2r-sniffer": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "TinyAuth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://www.dereuromark.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A CakePHP plugin to handle user authentication and authorization the easy way.",
+            "homepage": "https://github.com/dereuromark/cakephp-tinyauth",
+            "keywords": [
+                "Authentication",
+                "authorization",
+                "cakephp",
+                "plugin",
+                "roles",
+                "tinyauth"
+            ],
+            "time": "2019-11-22T11:22:17+00:00"
+        },
+        {
+            "name": "dereuromark/cakephp-tinyauth-backend",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-tinyauth-backend.git",
+                "reference": "8329d2c9fc50df73f9bdf08a3c9d67719ad296b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth-backend/zipball/8329d2c9fc50df73f9bdf08a3c9d67719ad296b8",
+                "reference": "8329d2c9fc50df73f9bdf08a3c9d67719ad296b8",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.8.0",
+                "dereuromark/cakephp-tinyauth": "dev-master",
+                "dereuromark/cakephp-tools": "dev-master",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "fig-r/psr2r-sniffer": "dev-master"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "TinyAuthBackend\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://www.dereuromark.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A CakePHP plugin for DB based authentication and authorization handling",
+            "homepage": "https://github.com/dereuromark/cakephp-tinyauth-backend",
+            "keywords": [
+                "Authentication",
+                "authorization",
+                "cakephp",
+                "plugin",
+                "roles",
+                "tinyauth"
+            ],
+            "time": "2019-11-22T11:26:22+00:00"
+        },
+        {
+            "name": "dereuromark/cakephp-tools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-tools.git",
+                "reference": "885a21b5d1e675c1f6b562f8a59e149d3674e97b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/885a21b5d1e675c1f6b562f8a59e149d3674e97b",
+                "reference": "885a21b5d1e675c1f6b562f8a59e149d3674e97b",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^3.7.0",
+                "dereuromark/cakephp-shim": "^1.7.0",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "cakephp/chronos": "^1.0.1",
+                "fig-r/psr2r-sniffer": "dev-master",
+                "mobiledetect/mobiledetectlib": "^2.8",
+                "yangqi/htmldom": "^1.0"
+            },
+            "suggest": {
+                "yangqi/htmldom": "For HtmlDom usage"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Tools\\": "src/",
+                    "Tools\\Test\\Fixture\\": "tests/Fixture/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "https://www.dereuromark.de",
+                    "role": "Author"
+                }
+            ],
+            "description": "A CakePHP plugin containing lots of useful and reusable tools",
+            "homepage": "https://github.com/dereuromark/cakephp-tools",
+            "keywords": [
+                "behaviors",
+                "cakephp",
+                "components",
+                "datasources",
+                "helpers",
+                "plugin",
+                "tools",
+                "utils"
+            ],
+            "time": "2019-11-22T11:12:43+00:00"
         },
         {
             "name": "ivanamat/cakephp3-markdown",
@@ -4424,6 +4641,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "dereuromark/cakephp-tinyauth": 20,
+        "dereuromark/cakephp-tinyauth-backend": 20,
+        "dereuromark/cakephp-tools": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

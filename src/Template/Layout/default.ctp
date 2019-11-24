@@ -35,8 +35,8 @@
             <div id="main_links">
                 <ul>
                     <li><a href="<?= $this->Url->build('/'); ?>">Home</a></li>
-                    <?php if(isset($role) && $role == 'admin'): ?><li><a href="#">Admin</a></li><?php endif; ?>
-                    <?php if(isset($role) && $role == 'admin' || isset($role) && $role == 'mod'): ?><li><a href="<?= $this->Url->build(["controller" => "Mod", "action" => "index"]); ?>">Mod</a></li><?php endif; ?>
+                    <?php if ($this->AuthUser->hasRole('admin')): ?><li><a href="<?= $this->Url->build(["controller" => "Admin", "action" => "auth"]); ?>">Admin</a></li><?php endif; ?>
+                    <?php if ($this->AuthUser->hasRole('mod') || $this->AuthUser->hasRole('admin')): ?><li><a href="<?= $this->Url->build(["controller" => "Mod", "action" => "index"]); ?>">Mod</a></li><?php endif; ?>
                     <li>
                         <div class="dropdown">
                             <a href="#">

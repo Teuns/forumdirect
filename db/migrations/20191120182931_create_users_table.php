@@ -25,6 +25,6 @@ class CreateUsersTable extends AbstractMigration
 
     public function down()
     {
-
+        $this->dropTable('users');
     }
 }

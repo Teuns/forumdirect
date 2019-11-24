@@ -17,6 +17,6 @@ class CreatePostsTable extends AbstractMigration
 
     public function down()
     {
-
+        $this->dropTable('posts');
     }
 }

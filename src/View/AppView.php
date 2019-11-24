@@ -37,5 +37,6 @@ class AppView extends View
     public function initialize()
     {
         $this->loadHelper('Markdown.Markdown');
+        $this->loadHelper('TinyAuth.AuthUser');
     }
 }
