@@ -65,6 +65,12 @@ return [
         ],
 
         [
+            'role' => 'mod',
+            'controller' => ['Mod', 'Users', 'Threads', 'Posts'],
+            'action' => '*',
+        ],
+
+        [
             'role' => 'user',
             'controller' => 'Users',
             'action' => ['editProfile', 'editAvatar', 'logout'],

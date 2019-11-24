@@ -17,11 +17,11 @@
                         by <?= $subforum->threads[$i]->users['username']; ?>
                     </div>
                 </li>
-                <li class="posts"> <?= count($subforum->threads); ?> topics<br><?= $subforum->threads[$i]->posts_total; ?> posts</li>
+                <li class="posts"> <?= $subforum->threads[$i]->views; ?> views<br><?= $subforum->threads[$i]->posts_total; ?> posts</li>
                 <li class="lastpost">
-                    <a href="../../../threads/<?= $subforum->threads[0]->id; ?>-<?= $subforum->threads[0]->slug; ?>"><?= $subforum->threads[0]->title; ?></a>
-                    <p>by <?= $subforum->threads[0]->users['username']; ?></p>
-                    <p>created at <?= $subforum->threads[0]->lastpost_date; ?></p>
+                    <a href="../../../threads/<?= $subforum->threads[$i]->id; ?>-<?= $subforum->threads[$i]->slug; ?>?action=lastpost"><?= $subforum->threads[$i]->title; ?></a>
+                    <p>by <?= $subforum->threads[$i]->users['username']; ?></p>
+                    <p>created at <?= $subforum->threads[$i]->lastpost_date; ?></p>
                 </li>
             </ul>
             <?php endfor; ?>

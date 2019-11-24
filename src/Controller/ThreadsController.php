@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Database\Expression\QueryExpression;
 use Cake\I18n\Time;
 use Cake\Utility\Text;
 use Cake\Http\Exception\NotFoundException;
@@ -43,6 +44,12 @@ class ThreadsController extends AppController
         if (empty($thread)) {
             throw new NotFoundException(__('Thread not found'));
         }
+
+        $views_query = $this->Threads->query();
+        $views_query->update()
+            ->set(['views' => new QueryExpression('views + 1')])
+            ->where(['id' => $id])
+            ->execute();
 
         $this->paginate = [
             'limit' => 5,
