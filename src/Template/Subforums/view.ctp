@@ -19,7 +19,7 @@
                 </li>
                 <li class="posts"> <?= $subforum->threads[$i]->views; ?> views<br><?= $subforum->threads[$i]->posts_total; ?> posts</li>
                 <li class="lastpost">
-                    <a href="../../../threads/<?= $subforum->threads[$i]->id; ?>-<?= $subforum->threads[$i]->slug; ?>?action=lastpost"><?= $subforum->threads[$i]->title; ?></a>
+                    <a href="../../../threads/<?= $subforum->threads[$i]->id; ?>-<?= $subforum->threads[$i]->slug; ?>?action=lastpost"><?= h($subforum->threads[$i]->title); ?></a>
                     <p>by <?= $subforum->threads[$i]->users['username']; ?></p>
                     <p>created at <?= $subforum->threads[$i]->lastpost_date; ?></p>
                 </li>

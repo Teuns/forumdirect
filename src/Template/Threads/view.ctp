@@ -1,7 +1,7 @@
-<?php $this->assign('title', $thread->title); ?>
+<?php $this->assign('title', h($thread->title)); ?>
 <?php
     $this->Breadcrumbs->add([
-        ['title' => $thread->title]
+        ['title' => h($thread->title)]
     ]);
 ?>
 <div class="box">

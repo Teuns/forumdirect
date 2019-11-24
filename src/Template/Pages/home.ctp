@@ -31,7 +31,7 @@ function count_posts($count, $item)
                         <?php if($forum->subforums[$i]->threads): ?>
                             <li class="posts"> <?= count($forum->subforums[$i]->threads); ?> topics<br> <?= array_reduce($forum->subforums[$i]->threads, "count_posts"); ?> posts</li>
                             <li class="lastpost">
-                                <a href="threads/<?= $forum->subforums[$i]->threads[0]->id; ?>-<?= $forum->subforums[$i]->threads[0]->slug; ?>"><?= $forum->subforums[$i]->threads[0]->title; ?></a>
+                                <a href="threads/<?= $forum->subforums[$i]->threads[0]->id; ?>-<?= $forum->subforums[$i]->threads[0]->slug; ?>"><?= h($forum->subforums[$i]->threads[0]->title); ?></a>
                                 <p>by <?= $forum->subforums[$i]->threads[0]->users['username']; ?></p>
                                 <p>created at <?= $forum->subforums[$i]->threads[0]->lastpost_date; ?></p>
                             </li>
