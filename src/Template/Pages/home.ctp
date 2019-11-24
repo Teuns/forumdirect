@@ -78,8 +78,8 @@ function count_posts($count, $item)
         <div class="head1">Recent Activity</div>
         <div class="box_stuff">
             <ul class="list-recent_activity">
-                <?php $lastElementKey = $recent_activity->count() - 1 ?>
-                <?php foreach( $recent_activity as $key => $threads ): ?>
+                <?php $lastElementId = $recent_activity->last()->id ?>
+                <?php foreach( $recent_activity as $threads ): ?>
                     <li>
                         <a href="threads/<?= $threads->id; ?>-<?= $threads->slug; ?>?action=lastpost">
                             <?= $this->Text->truncate(h($threads->title), 75, array('ending' => '...', 'exact' => true)); ?>
@@ -93,7 +93,7 @@ function count_posts($count, $item)
                             </span>
                         </p>
                     </li>
-                    <?php if($key !== $lastElementKey): ?>
+                    <?php if($threads->id !== $lastElementId): ?>
                         <hr />
                     <?php endif; ?>
                 <?php endforeach; ?>
