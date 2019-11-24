@@ -71,6 +71,12 @@ return [
         ],
 
         [
+            'role' => 'verify',
+            'controller' => 'Users',
+            'action' => ['verify'],
+        ],
+
+        [
             'role' => 'user',
             'controller' => 'Users',
             'action' => ['editProfile', 'editAvatar', 'logout'],
@@ -123,6 +129,6 @@ return [
             'role' => '*',
             'controller' => 'Pages',
             'action' => 'display',
-        ],
+        ]
     ]
 ];

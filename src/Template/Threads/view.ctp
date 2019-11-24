@@ -65,7 +65,7 @@
 </div>
 <h1>Add Post</h1>
 <?php if($loggedIn && !$thread->closed || $loggedIn && $role == 'admin' || $loggedIn && $role == 'mod'): ?>
-    <?php if($role == 'admin' || $loggedIn && $role == 'mod'): ?>
+    <?php if($thread->closed && $role == 'admin' || $thread->closed && $loggedIn && $role == 'mod'): ?>
         <span><b>Notice:</b> Thread is closed.</span>
     <?php endif; ?>
     <?php

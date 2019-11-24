@@ -4,5 +4,6 @@
 <?= $this->Form->input('username') ?>
 <?= $this->Form->input('password') ?>
 <p>Nog geen account? <a href="<?= $this->Url->build(["controller" => "Users", "action" => "add"]); ?>">Maak er een aan</a>.</p>
+<p>Wachtwoord vergeten? <a href="<?= $this->Url->build(["controller" => "Users", "action" => "password"]); ?>">Klik hier.</a></p>
 <?= $this->Form->button(__('Inloggen')); ?>
 <?= $this->Form->end() ?>

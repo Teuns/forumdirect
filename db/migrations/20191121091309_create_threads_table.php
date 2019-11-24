@@ -12,7 +12,7 @@ class CreateThreadsTable extends AbstractMigration
             ->addColumn('body', 'text')
             ->addColumn('user_id', 'integer')
             ->addColumn('subforum_id', 'integer')
-            ->addColumn('lastpost_date', 'datetime')
+            ->addColumn('lastpost_date', 'datetime', ['null' => true])
             ->addColumn('lastpost_uid', 'integer')
             ->addColumn('views', 'integer', ['default' => 0])
             ->addColumn('closed', 'integer', ['default' => 0])

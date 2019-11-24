@@ -68,6 +68,7 @@ class AppController extends Controller
             $this->set('username', $this->Auth->user('username'));
             $this->set('userId', $this->Auth->user('id'));
             $this->set('role', $this->Auth->user('role'));
+            $this->set('verified', $this->Auth->user('verified'));
 
             $last_seen_query = $this->Users->query();
             $last_seen_query->update()

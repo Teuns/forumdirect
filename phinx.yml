@@ -19,7 +19,7 @@ environments:
         host: localhost
         name: forums_app
         user: root
-        pass: ''
+        pass: 'gebouwde'
         port: 3306
         charset: utf8
 

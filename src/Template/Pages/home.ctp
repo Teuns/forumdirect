@@ -45,6 +45,9 @@ function count_posts($count, $item)
             <?php endif; ?>
         <br />
     <?php endforeach; ?>
+    <?php if (!$forums->count()): ?>
+        <div class="error-msg"><i class="fa fa-times-circle"></i> No forums found. Make one!</div>
+    <?php endif; ?>
     <div class="box">
         <div class="head1">Forum Information</div>
         <div class="box_stuff">

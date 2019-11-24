@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
+use Cake\I18n\Time;
+use Cake\Routing\Router;
 use Cake\Validation\Validator;
+use Cake\Mailer\Email;
 
 class UsersController extends AppController
 {
@@ -19,7 +23,9 @@ class UsersController extends AppController
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
-        $this->Auth->allow('add','logout');
+        $this->Auth->allow('add', 'logout');
+        $this->Auth->allow('password');
+        $this->Auth->allow('reset');
     }
 
     public function index()
@@ -80,11 +86,100 @@ class UsersController extends AppController
         }
 
         $user = $this->Users->newEntity();
+
+        $verifyToken = uniqid();
+        $user->verify_token = $verifyToken;
+
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved'));
+                $url = Router::Url(['controller' => 'users', 'action' => 'verify'], true) . '/' . $verifyToken;
+                $this->sendVerifyEmail($url, $user);
                 return $this->redirect(['action' => 'add']);
+            }
+            $this->Flash->error(__('An error occurred'));
+        }
+        $this->set('user', $user);
+    }
+
+    private function sendVerifyEmail($url, $user) {
+        $email = new Email();
+        $email->viewBuilder()->setTemplate('verify');
+        $email->setEmailFormat('html');
+        $email->setFrom(Configure::read('App.email'));
+        $email->setTo($user->email, $user->username);
+        $email->setSubject('Verify Your Email');
+        $email->setViewVars(['url' => $url, 'username' => $user->username]);
+        if ($email->send()) {
+            $this->Flash->success(__('Check your email for your verify link'));
+        } else {
+            $this->Flash->error(__('Error sending email: ') . $email->smtpError);
+        }
+    }
+
+    public function verify($token)
+    {
+        $user = $this->Users->find()->where(['verify_token' => $token])->first();
+        $user->verify_token = null;
+        $user->verified = 1;
+        $user->role = 'user';
+        if ($this->Users->save($user)) {
+            $this->Auth->setUser($user->toArray());
+            $this->Flash->success(__('The user has been verified'));
+            return $this->redirect(['action' => 'login']);
+        }
+        $this->Flash->error(__('An error occurred'));
+        return $this->redirect('/');
+    }
+
+    public function password()
+    {
+        if ($this->Auth->user()){
+            return $this->redirect($this->Auth->redirectUrl('/'));
+        }
+
+        $user = $this->Users->findByEmail($this->request->getData('email'))->first();
+
+        $passToken = uniqid();
+
+        $timeout = Time::now();
+        $timeout->addDay(1);
+
+        if ($this->request->is('post')) {
+             if ($this->Users->updateAll(['pass_token' => $passToken, 'timeout' => $timeout], ['id' => $user->id])) {
+                $url = Router::Url(['controller' => 'users', 'action' => 'reset'], true) . '/' . $passToken;
+                $this->sendResetEmail($url, $user);
+                return $this->redirect(['action' => 'password']);
+            }
+            $this->Flash->error(__('An error occurred'));
+        }
+        $this->set('user', $user);
+    }
+
+    private function sendResetEmail($url, $user) {
+        $email = new Email();
+        $email->viewBuilder()->setTemplate('reset');
+        $email->setEmailFormat('html');
+        $email->setFrom(Configure::read('App.email'));
+        $email->setTo($user->email, $user->username);
+        $email->setSubject('Reset Your Password');
+        $email->setViewVars(['url' => $url, 'username' => $user->username]);
+        if ($email->send()) {
+            $this->Flash->success(__('Check your email for your password reset link'));
+        } else {
+            $this->Flash->error(__('Error sending email: ') . $email->smtpError);
+        }
+    }
+
+    public function reset($token)
+    {
+        $user = $this->Users->find()->where(['pass_token' => $token, 'timeout >' => time()])->first();
+        $user->pass_token = null;
+        $user->timeout = null;
+        if ($this->request->is(['post', 'put'])) {
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The password has been reset'));
+                return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('An error occurred'));
         }

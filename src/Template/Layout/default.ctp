@@ -9,7 +9,7 @@
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('style.css') ?>
+    <?= $this->Html->css('style.css?md5='.md5_file('css/style.css')) ?>
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') ?>
 
     <?= $this->Html->script('app.js') ?>
@@ -72,6 +72,9 @@
     </div>
     <div id="main_content" class="wrap">
         <?= $this->Flash->render() ?>
+        <?php if(isset($verified) && !$verified): ?>
+            <div class="warning-msg"><i class="fa fa-times-circle"></i> Please verify your account. Contact us if you haven't received the email.</div>
+        <?php endif; ?>
         <?= $this->fetch('content') ?>
     </div>
     <div style="clear:both;"></div>

@@ -135,7 +135,6 @@ class ThreadsController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $thread['lastpost_date'] = null;
             $thread = $this->Threads->patchEntity($thread, $this->request->getData());
 
             if ($this->Threads->save($thread)) {

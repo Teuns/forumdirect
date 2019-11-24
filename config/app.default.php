@@ -49,6 +49,7 @@ return [
      */
     'App' => [
         'name' => 'Forums',
+        'email' => 'echtwaar10@gmail.com',
         'namespace' => 'App',
         'encoding' => env('APP_ENCODING', 'UTF-8'),
         'defaultLocale' => env('APP_DEFAULT_LOCALE', 'en_US'),
