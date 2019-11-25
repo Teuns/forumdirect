@@ -55,7 +55,7 @@ $this->Breadcrumbs->add([
                     <?php foreach($last_threads as $thread): ?>
                         <tr>
                             <td><?= $thread->id ?></td>
-                            <td><a href="../../threads/<?= $thread->id ?>-<?= $thread->slug ?>"><?= $thread->title ?></a></td>
+                            <td><a href="../../threads/<?= $thread->id ?>-<?= $thread->slug ?>"><?= h($thread->title) ?></a></td>
                             <td><?= $thread->created ?></td>
                             <td><?= $thread->lastpost_date ?></td>
                         </tr>

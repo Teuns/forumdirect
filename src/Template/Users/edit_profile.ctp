@@ -23,6 +23,14 @@ $this->Breadcrumbs->add([
     <?= $this->Form->create($user) ?>
         <h1><?= __('Edit Profile') ?></h1>
     <?= $this->Form->input('username') ?>
+    <?php $roles = array_combine(array_keys($this->AuthUser->roles()), array_values($this->AuthUser->roles())); ?>
+    <label for="role">Primary Role</label>
+    <?= $this->Form->select(
+        'primary_role',
+        array_flip($roles),
+        ['value' => $user->roles_users[0]->role['id']]
+    );
+    ?>
     <?= $this->Form->input('password', ['value' => '']) ?>
     <?= $this->Form->input('confirm_password', ['type' => 'password']) ?>
     <?= $this->Form->button(__('Update')); ?>

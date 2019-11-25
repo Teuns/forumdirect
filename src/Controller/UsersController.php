@@ -98,14 +98,16 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
+            $roles = TableRegistry::get('roles');
+            $roles_users = TableRegistry::get('roles_users')->query();
+            $roles_users->insert(['user_id', 'role_id'])
+                ->values([
+                    'user_id' => $user->id,
+                    'role_id' => $roles->find('all')->where(['alias' => 'verify'])->first()->id
+                ])
+                ->execute();
+            $user->primary_role = $roles->find('all')->where(['alias' => 'verify'])->first()->id;
             if ($this->Users->save($user)) {
-                $user_roles = TableRegistry::get('user_roles')->query();
-                $user_roles->insert(['user_id', 'role_id'])
-                    ->values([
-                        'user_id' => $user->id,
-                        'role_id' => 10
-                    ])
-                    ->execute();
                 $url = Router::Url(['controller' => 'users', 'action' => 'verify'], true) . '/' . $verifyToken;
                 $this->sendVerifyEmail($url, $user);
                 return $this->redirect(['action' => 'add']);
@@ -133,13 +135,22 @@ class UsersController extends AppController
     public function verify($token)
     {
         $user = $this->Users->find()->where(['verify_token' => $token])->first();
+
+        if (empty($user)) {
+            return $this->redirect('/');
+        }
+
         $user->verify_token = null;
         $user->verified = 1;
-        $user_roles = TableRegistry::get('user_roles')->query();
-        $user_roles->update()
-            ->set(['role_id' => 9])
-            ->where(['id' => $user->id])
+        $roles = TableRegistry::get('roles');
+        $roles_users = TableRegistry::get('roles_users')->query();
+        $roles_users->insert(['user_id', 'role_id'])
+            ->values([
+                'user_id' => $user->id,
+                'role_id' => $roles->find('all')->where(['alias' => 'user'])->first()->id
+            ])
             ->execute();
+        $user->primary_role = $roles->find('all')->where(['alias' => 'user'])->first()->id;
         if ($this->Users->save($user)) {
             $this->Auth->setUser($user->toArray());
             $this->Flash->success(__('The user has been verified'));
@@ -234,9 +245,16 @@ class UsersController extends AppController
 
     public function editProfile()
     {
-        $user = $this->Users->get($this->Auth->user('id'));
+        $user = $this->Users->findById($this->Auth->user('id'))->contain(['roles_users.roles'])->first();
         if ($this->request->is(['post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->request->getData('primary_role')) {
+                $roles_users = TableRegistry::get('roles_users');
+                $result = $roles_users->find('all')->where(['role_id' => $this->request->getData('primary_role'), 'user_id' => $this->Auth->user('id')])->count();
+                if ($result) {
+                    $user->primary_role = $this->request->getData('primary_role');
+                }
+            }
             if ($this->Users->save($user)) {
                 $this->Auth->setUser($user->toArray());
                 $this->Flash->success(__('The user has been saved'));

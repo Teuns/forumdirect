@@ -12,6 +12,7 @@ class CreateUsersTable extends AbstractMigration
             ->addColumn('email', 'string')
             ->addColumn('avatar', 'string', ['default' => '/img/default_avatar.png', 'limit' => 1000])
             ->addColumn('role', 'string', ['default' => 'verify'])
+            ->addColumn('primary_role', 'integer')
             ->addColumn('last_seen', 'datetime', ['null' => true])
             ->addColumn('verify_token', 'string', ['null' => true])
             ->addColumn('verified', 'integer', ['default' => 0])

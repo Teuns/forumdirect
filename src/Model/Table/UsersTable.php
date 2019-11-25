@@ -9,7 +9,9 @@ class UsersTable extends Table
 {
     public function initialize(array $config)
     {
-        $this->hasMany('roles_users');
+        $this->hasMany('roles_users')
+            ->setForeignKey(['user_id', 'role_id'])
+            ->setBindingKey(['id', 'primary_role']);
     }
 
     public function validationDefault(Validator $validator)
