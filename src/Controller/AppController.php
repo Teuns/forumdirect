@@ -116,8 +116,14 @@ class AppController extends Controller
         $this->set('total_threads', $total_threads);
         $this->set('total_posts', $total_posts);
 
-        $recent_activity = $this->Threads->find('all')->contain(['Users']);
+        $recent_activity = $this->Threads->find('all');
         $recent_activity
+            ->select(['id', 'title', 'slug', 'subforum_id', 'lastpost_date', 'users.username'])
+            ->join([
+                'table' => 'users',
+                'type' => 'LEFT',
+                'conditions' => 'users.id = lastpost_uid',
+            ])
             ->order(['lastpost_date'  => 'DESC'])
             ->limit(10);
         $this->set('recent_activity', $recent_activity);

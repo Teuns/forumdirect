@@ -46,7 +46,7 @@
                         </a>
                         <p>
                             <a href="#">
-                                <?= h($threads->user->username); ?>
+                                <?= h($threads->users['username']); ?>
                             </a>
                             <span class="float-right">
                               <?= $this->Text->truncate($this->Time->timeAgoInWords($threads->lastpost_date), 18, array('ending' => '...', 'exact' => true)); ?>
