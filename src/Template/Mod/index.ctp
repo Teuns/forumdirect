@@ -10,13 +10,40 @@ $this->Breadcrumbs->add([
         <div class="box_stuff">
             <ul class="vertical-menu">
                 <li><a href="/mod">mod cp</a></li>
-                <li><a href="#">warn user</a></li>
+                <li><a href="/mod/warn">warn user</a></li>
             </ul>
         </div>
     </div>
     <br />
 </div>
 <div id="bit-80">
+    <div class="box">
+        <div class="head1">Reports</div>
+        <div class="box_stuff">
+            <div style="overflow-x:auto;">
+                <table id="users">
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Reason</th>
+                        <th>Type</th>
+                        <th>ID</th>
+                        <th>Action</th>
+                    </tr>
+                    <?php foreach($reports as $report): ?>
+                        <tr>
+                            <td><?= $report->id ?></td>
+                            <td><a href="#"><?= $report->user->username ?></a></td>
+                            <td><?= $report->reason ?></td>
+                            <td><?= $report->type ?></td>
+                            <td><?= $report->to_id ?></td>
+                            <td><a href="#">go to <?= $report->type ?></a> | <?= $this->Form->postLink(__('delete'), ['controller' => 'reports', 'action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete this report?')]) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            </div>
+        </div>
+    </div>
     <div class="box">
         <div class="head1">Users</div>
         <div class="box_stuff">
@@ -35,7 +62,7 @@ $this->Breadcrumbs->add([
                             <td><a href="#"><?= $user->username ?></a></td>
                             <td><?= $user->created ?></td>
                             <td><?= $user->modified ?></td>
-                            <td><?php if($user->role == 'user'): ?><a href="/mod/ban/<?= $user->id ?>">ban user</a><?php elseif($user->role == 'banned'): ?><a href="/mod/unban/<?= $user->id ?>">un-ban user</a><?php endif; ?></td>
+                            <td><a href="/mod/ban/<?= $user->id ?>">ban user</a> | <a href="/mod/unban/<?= $user->id ?>">un-ban user</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

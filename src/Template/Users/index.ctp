@@ -12,6 +12,8 @@ $this->Breadcrumbs->add([
                 <li><a href="/users">user cp</a></li>
                 <li><a href="/users/edit-avatar">upload avatar</a></li>
                 <li><a href="/users/edit-profile">edit profile</a></li>
+                <li><a href="<?= $this->Url->build(["controller" => "Direct", "action" => "inbox"]); ?>">Inbox</a></li>
+                <li><a href="<?= $this->Url->build(["controller" => "Direct", "action" => "outbox"]); ?>">Outbox</a></li>
                 <li><a href="#">edit signature</a></li>
                 <li><a href="#">manage sessions</a></li>
             </ul>

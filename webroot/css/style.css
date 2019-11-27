@@ -354,7 +354,7 @@ a:hover {
   }
 }
 
-input[type=text], input[type=email], input[type=password], select, textarea {
+input[type=text], input[type=email], input[type=password], input[type=date], select, textarea {
   width: 100%;
   padding: 12px;
   padding-right: 0;
@@ -492,6 +492,27 @@ hr {
   color: white;
 }
 
+#direct_messages {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#direct_messages  td, #direct_messages  th {
+  padding: 8px;
+}
+
+#direct_messages tr:nth-child(even){background-color: #f2f2f2;}
+
+#direct_messages tr:hover {background-color: #ddd;}
+
+#direct_messages th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
 #users {
   border-collapse: collapse;
   width: 100%;
@@ -597,6 +618,13 @@ hr {
 
 .button.small {
   padding: 5px;
+}
+
+blockquote { 
+  display: block;
+  margin-left: 40px;
+  margin-right: 40px;
+  padding-bottom: 1rem;
 }
 
 .info-msg,
@@ -871,7 +899,10 @@ hr {
 
 .modal-body {
   padding: 2px 16px;
-  min-height: 120px;
+}
+
+.modal-body .info-msg, .modal-body .success-msg, .modal-body .warning-msg, .modal-body .error-msg{
+  margin: 0;
 }
 
 .modal-footer {

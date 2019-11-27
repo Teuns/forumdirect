@@ -202,9 +202,10 @@ class UsersController extends AppController
     public function reset($token)
     {
         $user = $this->Users->find()->where(['pass_token' => $token, 'timeout >' => time()])->first();
-        $user->pass_token = null;
-        $user->timeout = null;
         if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            $user->pass_token = null;
+            $user->timeout = null;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The password has been reset'));
                 return $this->redirect(['action' => 'login']);

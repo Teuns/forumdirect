@@ -70,11 +70,33 @@ class PostsController extends AppController
             if ($this->Posts->save($post)) {
                 $this->Flash->success(__('The post has been saved.'));
 
-                return $this->redirect('/threads/'. $thread->id. '-'. $thread->slug);
+                return $this->redirect('/threads/'. $thread->id. '-'. $thread->slug . '?action=lastpost');
             }
             $this->Flash->error(__('The post could not be saved. Please, try again.'));
         }
         $this->set(compact('post'));
+    }
+
+    public function quote($postId)
+    {
+        $post = $this->Posts->newEntity();
+        $post_data = $this->Posts->findById($postId)->contain(['Users'])->first();
+        $thread = $this->Threads->get($post_data->thread_id);
+        if ($this->request->is(['post', 'put'])) {
+            $post['thread_id'] = $thread->id;
+            $post['user_id'] = $this->Auth->user('id');
+            $post['modified'] = null;
+            $this->Threads->updateAll(['lastpost_date' => Time::now(), 'lastpost_uid' => $this->Auth->user('id')], ['id' => $thread->id]);
+            $post = $this->Posts->patchEntity($post, $this->request->getData());
+            if ($this->Posts->save($post)) {
+                $this->Flash->success(__('The post has been saved.'));
+
+                return $this->redirect('/threads/'. $thread->id. '-'. $thread->slug . '?action=lastpost');
+            }
+            $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        }
+        $post_data->body = $post_data->user->username."\n\n".$post_data->body;
+        $this->set(compact('post_data'));
     }
 
     /**
@@ -90,7 +112,7 @@ class PostsController extends AppController
             'contain' => []
         ]);
 
-        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod')) {
             $this->Flash->error(__('You cannot access this location'));
             return $this->redirect('/');
         }
@@ -121,8 +143,8 @@ class PostsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $post = $this->Posts->get($id);
-        
-        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+
+        if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod')) {
             $this->Flash->error(__('You cannot access this location'));
             return $this->redirect('/');
         }

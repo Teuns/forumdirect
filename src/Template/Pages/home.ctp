@@ -64,7 +64,11 @@ function count_posts($count, $item)
                 $onlineUsers .= $onlineUsersLastArr;
                 ?>
                 <li>Online users (in the last 15 minutes): <?= $onlineUsers ? $onlineUsers : '-' ?></li>
-                <li>Roles: <b>Administrator</b> <b>Moderator</b> <b>Member</b> <b>Banned</b></li>
+                <li>Roles:
+                    <?php foreach ($roles as $role): ?>
+                    <b><?= $role->name ?></b>
+                    <?php endforeach; ?>
+                </li>
                 <li>
                     <span> <?= $total_users ?> Members</span>
                     <span> <?= $total_threads ?> Threads</span>

@@ -13,6 +13,7 @@
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') ?>
 
     <?= $this->Html->script('app.js') ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -52,7 +53,7 @@
                             </div>
                         </div>
                     </li>
-                    <?php if($loggedIn): ?><li><a href="#">Messages</a></li><?php endif; ?>
+                    <?php if($loggedIn): ?><li><a href="<?= $this->Url->build(["controller" => "Direct", "action" => "inbox"]); ?>">Messages</a></li><?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -74,6 +75,12 @@
         <?= $this->Flash->render() ?>
         <?php if(isset($verified) && !$verified): ?>
             <div class="warning-msg"><i class="fa fa-times-circle"></i> Please verify your account. Contact us if you haven't received the email.</div>
+        <?php endif; ?>
+        <?php if(!is_null($reports) && $reports->count() && $this->AuthUser->hasRole('mod')): ?>
+            <div class="warning-msg"><i class="fa fa-times-circle"></i> There are reports to be reviewed. Check it in the mod section.</div>
+        <?php endif; ?>
+        <?php if(!is_null($direct_messages) && $direct_messages->count()): ?>
+            <div class="warning-msg"><i class="fa fa-times-circle"></i> You have received a DM named '<?= $direct_messages->last()->title ?>' from <?= $direct_messages->last()->user->username ?>, click <a href="/direct/view/<?= $direct_messages->last()->direct_id ?>"> here to view it</a></div>
         <?php endif; ?>
         <?= $this->fetch('content') ?>
     </div>

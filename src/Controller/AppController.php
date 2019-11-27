@@ -16,6 +16,8 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
+use Cake\Database\Expression\QueryExpression;
 
 /**
  * Application Controller
@@ -65,8 +67,58 @@ class AppController extends Controller
         $this->loadModel('Users');
         $this->loadModel('Threads');
         $this->loadModel('Posts');
+        $this->loadModel('DirectMessages');
+        $this->loadModel('Warnings');
+        $this->loadModel('Reports');
 
         if ($this->Auth->user()) {
+            $warnings = $this->Warnings->find('all')
+                ->select(['percentageTotal' => 'SUM(percentage)'])
+                ->where(['to_user_id' => $this->Auth->user('id'), 'valid_until >= NOW()'])
+                ->first();
+            $count_warnings = $this->Warnings->find('all')->where(['to_user_id' => $this->Auth->user('id')])->count();
+            $role_table = TableRegistry::get('roles');
+            $role = $role_table->find('all')->where(['alias' => 'banned'])->first();
+            $member_role = $role_table->find('all')->where(['alias' => 'user'])->first();
+            $user = $this->Users->findById($this->Auth->user('id'))->first();
+            if ($warnings->percentageTotal >= 100) {
+                if ($this->Auth->user('primary_role') !== $role->id) {
+                    $roles_users = TableRegistry::get('roles_users');
+                    if (!$roles_users->find('all')->where(['role_id' => $role->id])->count()) {
+                        $roles_users->query()->update()
+                            ->set([
+                                'role_id' => $role->id
+                            ])
+                            ->where(['user_id' => $this->Auth->user('id')])
+                            ->execute();
+
+                        $users = TableRegistry::get('users');
+                        $users->query()->update()
+                            ->set([
+                                'primary_role' => $role->id
+                            ])
+                            ->where(['id' => $this->Auth->user('id')])
+                            ->execute();
+                    }
+                }
+            } elseif ($count_warnings && $user->primary_role == $role->id) {
+                $roles_users = TableRegistry::get('roles_users');
+                $roles_users->query()->update()
+                    ->set([
+                        'role_id' => $member_role->id
+                    ])
+                    ->where(['user_id' => $this->Auth->user('id')])
+                    ->execute();
+
+                $users = TableRegistry::get('users');
+                $users->query()->update()
+                    ->set([
+                        'primary_role' => $member_role->id
+                    ])
+                    ->where(['id' => $this->Auth->user('id')])
+                    ->execute();
+            }
+
             $this->set('loggedIn', true);
             $this->set('username', $this->Auth->user('username'));
             $this->set('userId', $this->Auth->user('id'));
@@ -78,8 +130,28 @@ class AppController extends Controller
                 ->set(['last_seen' => date('Y-m-d H:i:s')])
                 ->where(['id' => $this->Auth->user('id')])
                 ->execute();
+
+            $direct_views = TableRegistry::get('direct_views')->find('all')
+                ->select(['direct_views.direct_id'])
+                ->where(['user_id' => $this->Auth->user('id')]);
+
+            $direct_messages = $this->DirectMessages->find('all')->where(['to_user_id' => $this->Auth->user('id')])->andWhere([
+                'NOT' => [
+                    'DirectMessages.id IN' => $direct_views
+                    ]
+            ])->contain(['Users']);
+
+            $this->set('direct_messages', $direct_messages);
+
+            $reports = $this->Reports->find('all');
+
+            $this->set('reports', $reports);
         } else {
             $this->set('loggedIn', false);
+
+            $this->set('direct_messages', null);
+
+            $this->set('reports', null);
         }
 
         $this->loadModel('Forums');
@@ -115,6 +187,9 @@ class AppController extends Controller
         $this->set('total_users', $total_users);
         $this->set('total_threads', $total_threads);
         $this->set('total_posts', $total_posts);
+
+        $roles = TableRegistry::get('roles')->find('all');
+        $this->set('roles', $roles);
 
         $recent_activity = $this->Threads->find('all');
         $recent_activity

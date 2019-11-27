@@ -122,6 +122,27 @@ class ThreadsController extends AppController
         $this->set(compact('thread'));
     }
 
+    public function quote($threadId)
+    {
+        $post = $this->Posts->newEntity();
+        $thread_data = $this->Threads->findById($threadId)->contain(['Users'])->first();
+        if ($this->request->is(['post', 'put'])) {
+            $post['thread_id'] = $threadId;
+            $post['user_id'] = $this->Auth->user('id');
+            $post['modified'] = null;
+            $this->Threads->updateAll(['lastpost_date' => Time::now(), 'lastpost_uid' => $this->Auth->user('id')], ['id' => $threadId]);
+            $post = $this->Posts->patchEntity($post, $this->request->getData());
+            if ($this->Posts->save($post)) {
+                $this->Flash->success(__('The post has been saved.'));
+
+                // return $this->redirect('/threads/'. $thread_data->id. '-'. $thread_data->slug . '?action=lastpost');
+            }
+            $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        }
+        $thread_data->body = $thread_data->user->username."\n\n".$thread_data->body;
+        $this->set(compact('thread_data'));
+    }
+
     /**
      * Edit method
      *
@@ -135,7 +156,7 @@ class ThreadsController extends AppController
             'contain' => []
         ]);
 
-        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod')) {
             $this->Flash->error(__('You cannot access this location'));
             return $this->redirect('/');
         }
@@ -168,7 +189,7 @@ class ThreadsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $thread = $this->Threads->get($id);
 
-        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod') && !$this->AuthUser->hasRole('admin')) {
+        if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod')) {
             $this->Flash->error(__('You cannot access this location'));
             return $this->redirect('/');
         }
