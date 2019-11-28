@@ -21,7 +21,7 @@ $this->Breadcrumbs->add([
         <div class="head1">Reports</div>
         <div class="box_stuff">
             <div style="overflow-x:auto;">
-                <table id="users">
+                <table id="reports">
                     <tr>
                         <th>#</th>
                         <th>Username</th>
@@ -40,10 +40,14 @@ $this->Breadcrumbs->add([
                             <td><a href="#">go to <?= $report->type ?></a> | <?= $this->Form->postLink(__('delete'), ['controller' => 'reports', 'action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete this report?')]) ?></td>
                         </tr>
                     <?php endforeach; ?>
+                    <?php if($reports->isEmpty()): ?>
+                        <td colspan="6">There are no reports to be reviewed.</td>
+                    <?php endif; ?>
                 </table>
             </div>
         </div>
     </div>
+    <br />
     <div class="box">
         <div class="head1">Users</div>
         <div class="box_stuff">

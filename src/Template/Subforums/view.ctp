@@ -41,7 +41,7 @@
                 <?php $lastElementId = $recent_activity->last()->id ?>
                 <?php foreach( $recent_activity as $threads ): ?>
                     <li>
-                        <a href="threads/<?= $threads->id; ?>-<?= $threads->slug; ?>?action=lastpost">
+                        <a href="../../../threads/<?= $threads->id; ?>-<?= $threads->slug; ?>?action=lastpost">
                             <?= $this->Text->truncate(h($threads->title), 75, array('ending' => '...', 'exact' => true)); ?>
                         </a>
                         <p>

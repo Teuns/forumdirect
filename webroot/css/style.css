@@ -513,6 +513,32 @@ hr {
   color: white;
 }
 
+#reports {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#reports  td, #reports  th {
+  padding: 8px;
+}
+
+#reports tr:nth-child(even){background-color: #f2f2f2;}
+
+#reports tr:hover {background-color: #ddd;}
+
+#reports th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+#users {
+  border-collapse: collapse;
+  width: 100%;
+}
+
 #users {
   border-collapse: collapse;
   width: 100%;
