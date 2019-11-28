@@ -65,9 +65,9 @@ class PostsController extends AppController
             $post['thread_id'] = $threadId;
             $post['user_id'] = $this->Auth->user('id');
             $post['modified'] = null;
-            $this->Threads->updateAll(['lastpost_date' => Time::now(), 'lastpost_uid' => $this->Auth->user('id')], ['id' => $threadId]);
             $post = $this->Posts->patchEntity($post, $this->request->getData());
             if ($this->Posts->save($post)) {
+                $this->Threads->updateAll(['lastpost_date' => Time::now(), 'lastpost_uid' => $this->Auth->user('id')], ['id' => $threadId]);
                 $this->Flash->success(__('The post has been saved.'));
 
                 return $this->redirect('/threads/'. $thread->id. '-'. $thread->slug . '?action=lastpost');
