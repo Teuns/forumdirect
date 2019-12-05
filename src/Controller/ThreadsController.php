@@ -40,6 +40,8 @@ class ThreadsController extends AppController
             $thread = $this->Threads->get($id, [
                 'contain' => ['Users.roles_users.roles']
             ]);
+
+            $subforum = $this->Subforums->find('all')->where(['id' => $thread->subforum_id])->first();
         }
 
         if (empty($thread)) {
@@ -60,6 +62,7 @@ class ThreadsController extends AppController
         $posts = $this->paginate($this->Posts->find('all')->where(['thread_id' => $id])->order(['Posts.created' => 'ASC']));
 
         $this->set('thread', $thread);
+        $this->set('subforum', $subforum);
         $this->set(compact('posts'));
 
         $currentPage = $this->request->getQuery('page');

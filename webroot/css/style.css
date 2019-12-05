@@ -247,8 +247,7 @@ a:hover {
   line-height: 40px;
   padding: 0 10px;
   color:#fff;
-  font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .box_stuff {
@@ -265,8 +264,7 @@ a:hover {
   line-height: 40px;
   padding: 0 10px;
   color:#fff;
-  font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .head2 a {
@@ -456,10 +454,10 @@ ul.breadcrumb li a:hover {
 }
 
 hr {
-    border: none;
-    height: 1px;
-    color: #333;
-    background-color: #333;
+  border: none;
+  height: 1px;
+  color: #ccc;
+  background-color: #ccc;
 }
 
 .vertical-menu {

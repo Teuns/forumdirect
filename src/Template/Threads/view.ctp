@@ -1,5 +1,9 @@
 <?php $this->assign('title', h($thread->title)); ?>
 <?php
+    $this->Breadcrumbs->add(
+        $subforum->title,
+        ['controller' => 'Subforums', 'action' => 'view', $subforum->id, $subforum->title]);
+
     $this->Breadcrumbs->add([
         ['title' => h($thread->title)]
     ]);
