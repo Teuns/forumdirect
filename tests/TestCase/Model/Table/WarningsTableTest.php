@@ -24,8 +24,6 @@ class WarningsTableTest extends TestCase
      */
     public $fixtures = [
         'app.Warnings',
-        'app.ToUsers',
-        'app.FromUsers',
         'app.Users'
     ];
 

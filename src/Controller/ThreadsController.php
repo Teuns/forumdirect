@@ -55,7 +55,7 @@ class ThreadsController extends AppController
             ->execute();
 
         $this->paginate = [
-            'limit' => 5,
+            'limit' => 10,
             'contain' => ['Users.roles_users.roles', 'Threads']
         ];
 

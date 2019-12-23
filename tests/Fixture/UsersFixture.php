@@ -13,8 +13,7 @@ class UsersFixture extends TestFixture
     public $records = [
         [
             'username' => 'testing',
-            'password' => '',
-            'role' => 'user',
+            'password' => ''
         ]
     ];
 }

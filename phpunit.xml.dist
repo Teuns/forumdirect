@@ -13,7 +13,13 @@
     <!-- Add any additional test suites you want to run here -->
     <testsuites>
         <testsuite name="app">
-            <file>tests/TestCase/Model/Table/ForumsTableTest.php</file>
+            <file>tests/TestCase/Model/Table/RolesTableTest.php</file>
+            <file>tests/TestCase/Model/Table/RolesUsersTableTest.php</file>
+            <file>tests/TestCase/Model/Table/ReportsTableTest.php</file>
+            <file>tests/TestCase/Model/Table/DirectMessagesTableTest.php</file>
+            <file>tests/TestCase/Model/Table/DirectViewsTableTest.php</file>
+            <file>tests/TestCase/Model/Table/WarningsTableTest.php</file>
+            <file>tests/TestCase/Model/Table/ForumsTableTest.php</file>s
             <file>tests/TestCase/Model/Table/SubforumsTableTest.php</file>
             <file>tests/TestCase/Controller/PagesControllerTest.php</file>
             <file>tests/TestCase/Controller/ThreadsControllerTest.php</file>

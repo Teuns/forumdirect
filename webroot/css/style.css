@@ -16,7 +16,7 @@ html {
   box-sizing: inherit;
 }
 
-body { 
+body {
   font-family: 'Open Sans', sans-serif;
   background-color: #eaecf0;
   position: relative;
@@ -37,7 +37,7 @@ a:hover {
   color: #5a9db0;
 }
 
-.wrap {  
+.wrap {
   margin: 0 auto;
   max-width: 90rem;
 }
@@ -62,7 +62,7 @@ a:hover {
 }
 
 #sgnav ul {
-  
+
 }
 
 #sgnav li {
@@ -173,12 +173,12 @@ a:hover {
   padding: 0 20px;
   padding-right: 0px;
   display: block;
-  box-sizing: border-box;   
+  box-sizing: border-box;
   clear: right;
 }
 
 #bit-20.sidebar-left {
-  padding-left: 0; 
+  padding-left: 0;
   padding-right: 20px;
 }
 
@@ -309,7 +309,7 @@ a:hover {
 }
 
 .icon1 {
-    color: #5a9db0;  
+    color: #5a9db0;
 }
 
 .desc {
@@ -635,16 +635,16 @@ hr {
   padding: 10px;
   color: #fff;
   display: inline-block;
-  font-size: .9rem;
+  font-size: .8rem;
   border-radius: 3px;
   text-align: center;
 }
 
 .button.small {
-  padding: 5px;
+  padding: 6px;
 }
 
-blockquote { 
+blockquote {
   display: block;
   margin-left: 40px;
   margin-right: 40px;
@@ -701,13 +701,13 @@ blockquote {
 .comment {
   position: relative;
   min-height: 150px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   overflow: hidden;
 }
 
 .comment:not(:last-child) {
-  box-shadow: 0px 1px 1px -1px #aeaec6;
+  border-bottom: 1px solid #ededed;
 }
 
 .comment.response {
@@ -892,7 +892,7 @@ blockquote {
 }
 
 @-webkit-keyframes animatetop {
-  from {top:-300px; opacity:0} 
+  from {top:-300px; opacity:0}
   to {top:0; opacity:1}
 }
 

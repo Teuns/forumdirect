@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
+use Cake\Validation\Validator;
 
 /**
  * Direct Controller
@@ -34,7 +35,7 @@ class DirectController extends AppController
             'table' => 'users',
             'type' => 'INNER',
             'conditions' => 'users.id = to_user_id',
-        ]])->select(['direct_id', 'title', 'created', 'users.username'])->where(['from_user_id' => $this->Auth->user('id')]);
+        ]])->select(['id', 'direct_id', 'title', 'created', 'users.username'])->where(['from_user_id' => $this->Auth->user('id')]);
 
         $this->set('directMessages', $directMessages);
     }
@@ -126,22 +127,29 @@ class DirectController extends AppController
             return $this->redirect('/');
         }
 
+        $validator = new Validator();
+        $validator->requirePresence('body');
+
         $direct['to_user_id'] = $direct_data->last()->user_id;
 
         if ($this->request->is('post')) {
-            $direct['title'] = $direct_data->first()->title;
+            $errors = $validator->errors($this->request->getData());
+            if (empty($errors)) {
+                $direct['title'] = $direct_data->first()->title;
 
-            $direct['user_id'] = $this->Auth->user('id');
+                $direct['user_id'] = $this->Auth->user('id');
 
-            $direct['from_user_id'] = $this->Auth->user('id');
+                $direct['from_user_id'] = $this->Auth->user('id');
 
-            $direct['direct_id'] = $direct_data->first()->id;
+                $direct['direct_id'] = $direct_data->first()->id;
 
-            $direct = $this->DirectMessages->patchEntity($direct, $this->request->getData(), ['validate' => false]);
-            if ($this->DirectMessages->save($direct)) {
-                $this->Flash->success(__('The reply has been saved.'));
+                $direct = $this->DirectMessages->patchEntity($direct, $this->request->getData(), ['validate' => false]);
+                if ($this->DirectMessages->save($direct)) {
+                    $this->Flash->success(__('The reply has been saved.'));
 
-                return $this->redirect(['action' => 'view', $direct_data->first()->id]);
+                    return $this->redirect(['action' => 'view', $direct_data->first()->id]);
+
+                }
             }
 
             $this->Flash->error(__('The reply message could not be saved. Please, try again.'));

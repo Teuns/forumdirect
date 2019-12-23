@@ -22,9 +22,12 @@ class PostsControllerTest extends TestCase
      * @var array
      */
     public $fixtures = [
+        'app.Threads',
         'app.Posts',
         'app.Users',
-        'app.Threads'
+        'app.TinyAuthAclRules',
+        'app.Roles',
+        'app.RolesUsers'
     ];
 
     /**
@@ -92,8 +95,7 @@ class PostsControllerTest extends TestCase
             'Auth' => [
                 'User' => [
                     'id' => 1,
-                    'username' => 'testing',
-                    'role' => 'user',
+                    'username' => 'testing'
                 ]
             ]
         ]);
@@ -103,8 +105,11 @@ class PostsControllerTest extends TestCase
 
         $data = [
             'id' => 1,
+            'body' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
             'user_id' => 1,
-            'body' => 'New Body',
+            'thread_id' => 1,
+            'created' => '2019-11-21 11:45:55',
+            'modified' => '2019-11-21 11:45:55'
         ];
         $this->post('/posts/add/1', $data);
 

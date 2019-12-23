@@ -24,8 +24,6 @@ class DirectMessagesTableTest extends TestCase
      */
     public $fixtures = [
         'app.DirectMessages',
-        'app.FromUsers',
-        'app.ToUsers',
         'app.Users'
     ];
 

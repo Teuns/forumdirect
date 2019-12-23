@@ -4,5 +4,5 @@
 <?= $this->Form->input('email') ?>
 <?= $this->Form->input('password') ?>
 <?= $this->Form->input('confirm_password', ['type' => 'password']) ?>
-<?= $this->Form->button(__('Aanmelden')); ?>
+<?= $this->Form->button(__('Add')); ?>
 <?= $this->Form->end() ?>

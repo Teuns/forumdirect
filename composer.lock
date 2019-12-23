@@ -454,18 +454,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dereuromark/cakephp-tinyauth-backend.git",
-                "reference": "8329d2c9fc50df73f9bdf08a3c9d67719ad296b8"
+                "reference": "a6a493003faf54bd22583e3cabb2a73dfa7b85de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth-backend/zipball/8329d2c9fc50df73f9bdf08a3c9d67719ad296b8",
-                "reference": "8329d2c9fc50df73f9bdf08a3c9d67719ad296b8",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth-backend/zipball/a6a493003faf54bd22583e3cabb2a73dfa7b85de",
+                "reference": "a6a493003faf54bd22583e3cabb2a73dfa7b85de",
                 "shasum": ""
             },
             "require": {
                 "cakephp/cakephp": "^3.8.0",
-                "dereuromark/cakephp-tinyauth": "dev-master",
-                "dereuromark/cakephp-tools": "dev-master",
+                "dereuromark/cakephp-tinyauth": "^2.0.1",
+                "dereuromark/cakephp-tools": "^1.9.8",
                 "php": ">=5.6"
             },
             "require-dev": {
@@ -506,12 +506,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dereuromark/cakephp-tools.git",
-                "reference": "885a21b5d1e675c1f6b562f8a59e149d3674e97b"
+                "reference": "05739ab54d956e0e31f8d71fbc9f3587d01cea37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/885a21b5d1e675c1f6b562f8a59e149d3674e97b",
-                "reference": "885a21b5d1e675c1f6b562f8a59e149d3674e97b",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/05739ab54d956e0e31f8d71fbc9f3587d01cea37",
+                "reference": "05739ab54d956e0e31f8d71fbc9f3587d01cea37",
                 "shasum": ""
             },
             "require": {
@@ -558,7 +558,7 @@
                 "tools",
                 "utils"
             ],
-            "time": "2019-11-22T11:12:43+00:00"
+            "time": "2019-12-09T17:54:40+00:00"
         },
         {
             "name": "ivanamat/cakephp3-markdown",
