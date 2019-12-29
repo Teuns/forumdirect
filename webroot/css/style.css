@@ -935,6 +935,18 @@ blockquote {
   color: white;
 }
 
+#chatbox {
+  list-style: none;
+  height: 300px;
+  font-size: 16px;
+  padding: 1.1rem;
+  overflow: auto;
+}
+
+#chatbox > li {
+  padding-top: 12px;
+}
+
 .footer {
   position: absolute;
   right: 0;

@@ -15,6 +15,35 @@ function count_posts($count, $item)
 ?>
 
 <div id="bit-80">
+    <div class="box">
+        <div class="head1">Chatbox</div>
+        <div class="box_stuff">
+            <ul id="chatbox">
+                <?php foreach($chats as $chat): ?>
+                    <li><b style="float: left;"><?= $chat->user->username ?></b>:
+                        <span style="float: right;">
+                            <?php echo $chat->created->format('H:i:s') ?>
+                        </span>
+                        <p>
+                            <?= h($chat->body) ?>
+                        </p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <div class="card-footer bevelled">
+                <div class="form-group">
+                    <input type="text" id="session" class="form-control" value="<?= $this->request->session()->id(); ?>" style="display:none">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <input type="text" id="text" name="text" class="form-control" placeholder="Enter message" autocomplete="off"onkeyup="handleKey(event)" disabled>
+                    <input type="button" id="send" name="send" value="Send" onclick="send()" style="display: none">
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+
     <?php foreach( $forums as $forum ): ?>
         <?php $len = count($forum->subforums); ?>
             <div class="head2"><?= $forum['title']; ?></div>

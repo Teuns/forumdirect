@@ -70,6 +70,7 @@ class AppController extends Controller
         $this->loadModel('DirectMessages');
         $this->loadModel('Warnings');
         $this->loadModel('Reports');
+        $this->loadModel('Chats');
 
         if ($this->Auth->user()) {
             $warnings = $this->Warnings->find('all')
@@ -176,6 +177,11 @@ class AppController extends Controller
                     ->group(['threads.id']);
             }]);
         $this->set('forums', $forums);
+
+        $chats = $this->Chats->find('all', [
+            'order' => ['Chats.created' => 'ASC']
+        ])->contain('Users');
+        $this->set('chats', $chats);
 
         $online_users = $this->Users->find('all')->where(['last_seen > NOW() - INTERVAL 15 MINUTE']);
         $this->set('online_users', $online_users);

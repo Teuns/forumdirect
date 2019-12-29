@@ -13,6 +13,7 @@
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') ?>
 
     <?= $this->Html->script('app.js') ?>
+    <?= $this->Html->script('chatclient.js?md5='.md5_file('js/chatclient.js')) ?>
     <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js') ?>
 
     <?= $this->fetch('meta') ?>
@@ -86,5 +87,11 @@
     </div>
     <div style="clear:both;"></div>
     <div class="footer"><div class="wrap">Copyright &copy; ForumDirect. All rights reserved.</div></div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            connect();
+        });
+    </script>
 </body>
 </html>
