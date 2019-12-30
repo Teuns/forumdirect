@@ -12,6 +12,18 @@ function count_posts($count, $item)
     $count += $item['posts_total'];
     return $count;
 }
+
+function getWhispers($str){
+    if (strpos($str, "/whisper") !== false) {
+        $username = explode(' ', explode("/whisper", $str)[1])[1];
+        $message = explode('/whisper ' . $username, $str)[1];
+        if($message && strlen(trim($message))){
+            $str = "<b>Whisper to " . $username . ": </b>" . $message;
+        }
+    }
+
+    return $str;
+}
 ?>
 
 <div id="bit-80">
@@ -20,12 +32,12 @@ function count_posts($count, $item)
         <div class="box_stuff">
             <ul id="chatbox">
                 <?php foreach($chats as $chat): ?>
-                    <li><b style="float: left;"><?= $chat->user->username ?></b>:
+                    <li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()"><?= $chat->user->username ?></b>:
                         <span style="float: right;">
                             <?php echo $chat->created->format('H:i:s') ?>
                         </span>
                         <p>
-                            <?= h($chat->body) ?>
+                            <?= getWhispers(h($chat->body)) ?>
                         </p>
                     </li>
                 <?php endforeach; ?>
@@ -36,6 +48,7 @@ function count_posts($count, $item)
                 </div>
                 <div class="form-group">
                     <label>Message</label>
+                    <span id="chatbox-error"></span>
                     <input type="text" id="text" name="text" class="form-control" placeholder="Enter message" autocomplete="off"onkeyup="handleKey(event)" disabled>
                     <input type="button" id="send" name="send" value="Send" onclick="send()" style="display: none">
                 </div>

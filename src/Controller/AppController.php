@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\Database\Expression\QueryExpression;
 
@@ -180,7 +181,15 @@ class AppController extends Controller
 
         $chats = $this->Chats->find('all', [
             'order' => ['Chats.created' => 'ASC']
-        ])->contain('Users');
+        ])->contain('Users')
+            ->where(['from_user_id IS NULL'])
+            ->andWhere(['to_user_id IS NULL'])
+            ->orWhere([
+                ['OR' =>
+                    ['from_user_id' => $this->Auth->user('id'), 'to_user_id' => $this->Auth->user('id')]
+                ]
+            ]);
+
         $this->set('chats', $chats);
 
         $online_users = $this->Users->find('all')->where(['last_seen > NOW() - INTERVAL 15 MINUTE']);
