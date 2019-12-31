@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "40988109f00be683c03af131f4c5f78f",
+    "content-hash": "8cb722690adfdbd7de79567f25ab5e0c",
     "packages": [
         {
             "name": "aura/intl",
@@ -395,16 +395,16 @@
         },
         {
             "name": "dereuromark/cakephp-tinyauth",
-            "version": "dev-master",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dereuromark/cakephp-tinyauth.git",
-                "reference": "b226ee446efded84ac733eda1897706ce3ad311e"
+                "reference": "8d949b7f6ed52fb403399b09ee6893d549c207bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth/zipball/b226ee446efded84ac733eda1897706ce3ad311e",
-                "reference": "b226ee446efded84ac733eda1897706ce3ad311e",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tinyauth/zipball/8d949b7f6ed52fb403399b09ee6893d549c207bf",
+                "reference": "8d949b7f6ed52fb403399b09ee6893d549c207bf",
                 "shasum": ""
             },
             "require": {
@@ -446,7 +446,7 @@
                 "roles",
                 "tinyauth"
             ],
-            "time": "2019-11-22T11:22:17+00:00"
+            "time": "2019-11-09T13:16:01+00:00"
         },
         {
             "name": "dereuromark/cakephp-tinyauth-backend",
@@ -502,16 +502,16 @@
         },
         {
             "name": "dereuromark/cakephp-tools",
-            "version": "dev-master",
+            "version": "1.9.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dereuromark/cakephp-tools.git",
-                "reference": "05739ab54d956e0e31f8d71fbc9f3587d01cea37"
+                "reference": "34fcad51b9e9f5c7b727077ec9edaa2d56abf87e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/05739ab54d956e0e31f8d71fbc9f3587d01cea37",
-                "reference": "05739ab54d956e0e31f8d71fbc9f3587d01cea37",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-tools/zipball/34fcad51b9e9f5c7b727077ec9edaa2d56abf87e",
+                "reference": "34fcad51b9e9f5c7b727077ec9edaa2d56abf87e",
                 "shasum": ""
             },
             "require": {
@@ -558,7 +558,50 @@
                 "tools",
                 "utils"
             ],
-            "time": "2019-12-09T17:54:40+00:00"
+            "time": "2019-12-27T16:38:29+00:00"
+        },
+        {
+            "name": "emojione/emojione",
+            "version": "4.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/emojione/emojione.git",
+                "reference": "79e685356877cbb6128074a71b7f88f435b58412"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/emojione/emojione/zipball/79e685356877cbb6128074a71b7f88f435b58412",
+                "reference": "79e685356877cbb6128074a71b7f88f435b58412",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.6 || ~5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Emojione\\": "lib/php/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "(CC-BY-4.0 and MIT)"
+            ],
+            "description": "EmojiOne is a complete set of emojis designed for the web. It includes libraries to easily convert unicode characters to shortnames (:smile:) and shortnames to our custom emoji images. PNG format provided for the emoji images.",
+            "homepage": "http://www.emojione.com",
+            "keywords": [
+                "emoji",
+                "emojione",
+                "emojis",
+                "emoticons",
+                "smileys",
+                "smilies",
+                "unicode"
+            ],
+            "time": "2019-02-15T01:32:20+00:00"
         },
         {
             "name": "ivanamat/cakephp3-markdown",
@@ -4641,9 +4684,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dereuromark/cakephp-tinyauth": 20,
         "dereuromark/cakephp-tinyauth-backend": 20,
-        "dereuromark/cakephp-tools": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,

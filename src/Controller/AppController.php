@@ -179,16 +179,24 @@ class AppController extends Controller
             }]);
         $this->set('forums', $forums);
 
-        $chats = $this->Chats->find('all', [
-            'order' => ['Chats.created' => 'ASC']
-        ])->contain('Users')
+        $connection = \Cake\Datasource\ConnectionManager::get('default');
+        $subquery = $connection
+            ->newQuery()
+            ->select('*')
+            ->from('chats')
+            ->order(['created' => 'DESC'])->limit(10);
+
+        $chats = $this->Chats->find('all')
+            ->contain('Users')
+            ->from(['Chats' => $subquery])
             ->where(['from_user_id IS NULL'])
             ->andWhere(['to_user_id IS NULL'])
             ->orWhere([
                 ['OR' =>
-                    ['from_user_id' => $this->Auth->user('id'), 'to_user_id' => $this->Auth->user('id')]
+                    array('from_user_id' => $this->Auth->user('id'),
+                        'to_user_id' => $this->Auth->user('id'))
                 ]
-            ]);
+            ])->order(['Chats.created' => 'ASC']);
 
         $this->set('chats', $chats);
 

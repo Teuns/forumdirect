@@ -85,14 +85,18 @@ $this->Breadcrumbs->add([
                         <th>Author</th>
                         <th>Created</th>
                         <th>Modified</th>
+                        <th>Closed</th>
+                        <th>Action</th>
                     </tr>
                     <?php foreach($threads as $thread): ?>
                         <tr>
                             <td><?= $thread->id ?></td>
-                            <td><a href="#"><?= $thread->title ?></a></td>
+                            <td><a href="#"><?= h($thread->title) ?></a></td>
                             <td><?= $thread->user->username ?></td>
                             <td><?= $thread->created ?></td>
                             <td><?= $thread->modified ?></td>
+                            <td><?= $thread->closed ? 'yes' : 'no' ?></td>
+                            <td><a href="/mod/close/<?= $thread->id ?>">close thread</a> | <a href="/mod/open/<?= $thread->id ?>">open thread</a> | <a href="/threads/delete/<?= $thread->id ?>" onclick="return confirm('Are you sure you want to do this?')">delete thread</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>
@@ -110,6 +114,7 @@ $this->Breadcrumbs->add([
                         <th>Author</th>
                         <th>Created</th>
                         <th>Modified</th>
+                        <th>Action</th>
                     </tr>
                     <?php foreach($posts as $post): ?>
                         <tr>
@@ -117,6 +122,7 @@ $this->Breadcrumbs->add([
                             <td><a href="#"><?= $post->user->username ?></a></td>
                             <td><?= $post->created ?></td>
                             <td><?= $post->modified ?></td>
+                            <td><a href="/posts/delete/<?= $post->id ?>" onclick="return confirm('Are you sure you want to do this?')">delete post</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </table>

@@ -185,4 +185,28 @@ class ModController extends AppController
             return $this->redirect('/mod');
         }
     }
+
+    public function close($threadId)
+    {
+        $thread = $this->Threads->get($threadId);
+
+        $thread->closed = 1;
+
+        if ($this->Threads->save($thread)) {
+            $this->Flash->success(__('The thread has been closed'));
+            return $this->redirect('/mod');
+        }
+    }
+
+    public function open($threadId)
+    {
+        $thread = $this->Threads->get($threadId);
+
+        $thread->closed = 0;
+
+        if ($this->Threads->save($thread)) {
+            $this->Flash->success(__('The thread has been opened'));
+            return $this->redirect('/mod');
+        }
+    }
 }

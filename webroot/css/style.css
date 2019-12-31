@@ -467,6 +467,31 @@ hr {
   padding: 14px;
 }
 
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table  td, .table  th {
+  padding: 8px;
+}
+
+.table tr:nth-child(even){background-color: #f2f2f2;}
+
+.table tr:hover {background-color: #ddd;}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #46494e;
+  color: white;
+}
+
+.table th a {
+  color: inherit;
+}
+
 #last_threads {
   border-collapse: collapse;
   width: 100%;
@@ -701,7 +726,6 @@ blockquote {
   min-height: 150px;
   margin-top: 15px;
   margin-bottom: 15px;
-  overflow: hidden;
 }
 
 .comment:not(:last-child) {
@@ -943,6 +967,17 @@ blockquote {
 
 #chatbox > li {
   padding-top: 12px;
+}
+
+.emojione {
+  padding: 0;
+  max-height: 23px;
+  pointer-events: none;
+  font-size: inherit;
+  display: inline-block;
+  margin: -.2ex .10em .2ex;
+  line-height: normal;
+  vertical-align: middle;
 }
 
 .footer {

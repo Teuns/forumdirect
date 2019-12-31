@@ -62,7 +62,7 @@ class ReportsTable extends Table
         $validator
             ->scalar('reason')
             ->maxLength('reason', 255)
-            ->allowEmptyString('reason');
+            ->requirePresence();
 
         return $validator;
     }

@@ -71,6 +71,17 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/threads/:id-:slug', ['controller' => 'Threads', 'action' => 'view'], ['pass' => ['slug', 'id'], 'id' => '[0-9]+']);
 
+    $routes->connect('/admin/forums/edit/:id', ['controller' => 'Admin', 'action' => 'editForum'], ['pass' => ['id'], 'id' => '[0-9]+']);
+
+    $routes->connect('/admin/subforums/edit/:id', ['controller' => 'Admin', 'action' => 'editSubforum'], ['pass' => ['id'], 'id' => '[0-9]+']);
+
+    $routes->connect('/admin/forums/add', ['controller' => 'Admin', 'action' => 'addForum']);
+
+    $routes->connect('/admin/subforums/add', ['controller' => 'Admin', 'action' => 'addSubforum']);
+
+    $routes->connect('/admin/forums/delete/:id', ['controller' => 'Admin', 'action' => 'deleteForum'], ['pass' => ['id'], 'id' => '[0-9]+']);
+
+    $routes->connect('/admin/subforums/delete/:id', ['controller' => 'Admin', 'action' => 'deleteSubforum'], ['pass' => ['id'], 'id' => '[0-9]+']);
     /**
      * Connect catchall routes for all controllers.
      *

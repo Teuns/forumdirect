@@ -13,6 +13,12 @@ function count_posts($count, $item)
     return $count;
 }
 
+use Emojione\Client;
+
+$client = new Client();
+$client->ascii = true;
+$client->unicodeAlt = true;
+
 function getWhispers($str){
     if (strpos($str, "/whisper") !== false) {
         $username = explode(' ', explode("/whisper", $str)[1])[1];
@@ -27,35 +33,37 @@ function getWhispers($str){
 ?>
 
 <div id="bit-80">
-    <div class="box">
-        <div class="head1">Chatbox</div>
-        <div class="box_stuff">
-            <ul id="chatbox">
-                <?php foreach($chats as $chat): ?>
-                    <li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()"><?= $chat->user->username ?></b>:
-                        <span style="float: right;">
-                            <?php echo $chat->created->format('H:i:s') ?>
-                        </span>
-                        <p>
-                            <?= getWhispers(h($chat->body)) ?>
-                        </p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-            <div class="card-footer bevelled">
-                <div class="form-group">
-                    <input type="text" id="session" class="form-control" value="<?= $this->request->session()->id(); ?>" style="display:none">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <span id="chatbox-error"></span>
-                    <input type="text" id="text" name="text" class="form-control" placeholder="Enter message" autocomplete="off"onkeyup="handleKey(event)" disabled>
-                    <input type="button" id="send" name="send" value="Send" onclick="send()" style="display: none">
+    <?php if($loggedIn && !$this->AuthUser->hasRole('banned')): ?>
+        <div class="box">
+            <div class="head1">Chatbox</div>
+            <div class="box_stuff">
+                <ul id="chatbox">
+                    <?php foreach($chats as $chat): ?>
+                        <li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()"><?= $chat->user->username ?></b>:
+                            <span style="float: right;">
+                                <?php echo $chat->created->format('H:i') ?>
+                            </span>
+                            <p>
+                                <?= getWhispers($client->toImage($this->Text->autoLink($chat->body, array('escape' => true)))) ?>
+                            </p>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+                <div class="card-footer bevelled">
+                    <div class="form-group">
+                        <input type="text" id="session" class="form-control" value="<?= $this->request->session()->id(); ?>" style="display:none">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <span id="chatbox-error"></span>
+                        <input type="text" id="text" name="text" class="form-control" placeholder="Enter message" autocomplete="off"onkeyup="handleKey(event)" disabled>
+                        <input type="button" id="send" name="send" value="Send" onclick="send()" style="display: none">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br/>
+        <br/>
+    <?php endif; ?>
 
     <?php foreach( $forums as $forum ): ?>
         <?php $len = count($forum->subforums); ?>

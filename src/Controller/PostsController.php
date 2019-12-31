@@ -141,7 +141,6 @@ class PostsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $post = $this->Posts->get($id);
 
         if (!$this->AuthUser->isMe($post->user_id) && !$this->AuthUser->hasRole('mod')) {
@@ -155,6 +154,6 @@ class PostsController extends AppController
             $this->Flash->error(__('The post could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect('/');
     }
 }

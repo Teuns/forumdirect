@@ -13,6 +13,9 @@
     <?= $this->Html->css('https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css') ?>
 
     <?= $this->Html->script('app.js') ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.7/linkify.min.js') ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jQuery-linkify/2.1.7/linkify-html.min.js') ?>
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js') ?>
     <?= $this->Html->script('chatclient.js?md5='.md5_file('js/chatclient.js')) ?>
     <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js') ?>
 
@@ -37,7 +40,7 @@
             <div id="main_links">
                 <ul>
                     <li><a href="<?= $this->Url->build('/'); ?>">Home</a></li>
-                    <?php if ($this->AuthUser->hasRole('admin')): ?><li><a href="<?= $this->Url->build(["controller" => "Admin", "action" => "auth"]); ?>">Admin</a></li><?php endif; ?>
+                    <?php if ($this->AuthUser->hasRole('admin')): ?><li><a href="<?= $this->Url->build(["controller" => "Admin", "action" => "index"]); ?>">Admin</a></li><?php endif; ?>
                     <?php if ($this->AuthUser->hasRole('mod') || $this->AuthUser->hasRole('admin')): ?><li><a href="<?= $this->Url->build(["controller" => "Mod", "action" => "index"]); ?>">Mod</a></li><?php endif; ?>
                     <li>
                         <div class="dropdown">

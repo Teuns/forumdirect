@@ -10,9 +10,10 @@
         "cakephp/cakephp": "3.8.*",
         "cakephp/migrations": "^2.0.0",
         "cakephp/plugin-installer": "^1.0",
-        "dereuromark/cakephp-tinyauth": "dev-master",
+        "dereuromark/cakephp-tinyauth": "^2.0.1",
         "dereuromark/cakephp-tinyauth-backend": "dev-master",
-        "dereuromark/cakephp-tools": "dev-master",
+        "dereuromark/cakephp-tools": "^1.9.8",
+        "emojione/emojione": "^4.5",
         "ivanamat/cakephp3-markdown": "^1.1",
         "mobiledetect/mobiledetectlib": "2.*"
     },

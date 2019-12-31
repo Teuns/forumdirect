@@ -6,12 +6,12 @@ var clientID = 0;
 
 var WebSocket = WebSocket || MozWebSocket;
 
-function setUsername() {
+function checkIn() {
   var msg = {
     session: document.getElementById("session").value,
     date: Date.now(),
     id: clientID,
-    type: "username"
+    type: "checkin"
   };
   connection.send(JSON.stringify(msg));
 }
@@ -19,7 +19,7 @@ function setUsername() {
 var old_text;
 
 function connect() {
-  var serverUrl = "ws://127.0.0.1:8080";
+  var serverUrl = "ws://192.168.2.40:8080";
 
   connection = new WebSocket(serverUrl);
 
@@ -47,18 +47,18 @@ function connect() {
     var text = "";
     var msg = JSON.parse(evt.data);
     var time = new Date(msg.date);
-    var timeStr = time.toLocaleTimeString();
+    var timeStr = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
 
     f.scrollTop = f.scrollHeight;
 
     switch(msg.type) {
       case "id":
         clientID = msg.id;
-        setUsername();
+        checkIn();
         break;
 
       case "message":
-        text = `<li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()">${msg.name}</b>: <span style="float: right;">${timeStr}</span><p>${msg.text}</p></li>`;
+        text = `<li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()">${msg.name}</b>: <span style="float: right;">${timeStr}</span><p>${emojione.toImage(linkifyHtml(msg.text))}</p></li>`;
         break;
 
       case "timeout": {

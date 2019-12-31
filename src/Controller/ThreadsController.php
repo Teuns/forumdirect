@@ -189,7 +189,6 @@ class ThreadsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $thread = $this->Threads->get($id);
 
         if (!$this->AuthUser->isMe($thread->user_id) && !$this->AuthUser->hasRole('mod')) {
@@ -203,6 +202,6 @@ class ThreadsController extends AppController
             $this->Flash->error(__('The thread could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect('/');
     }
 }
