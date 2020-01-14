@@ -158,7 +158,7 @@ class ModController extends AppController
         $roles_users = TableRegistry::get('roles_users');
         $roles_users->query()->update()
             ->set([
-                'role_id' => $role->id
+                'role_id' => $member_role->id
             ])
             ->where(['user_id' => $userId, 'role_id' => $role->id])
             ->execute();

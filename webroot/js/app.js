@@ -3,7 +3,7 @@ window.addEventListener("load", function(){
 
 	var span = document.getElementsByClassName("close")[0];
 
-	var divClone; 
+	var divClone;
 
 	openModal = function(e) {
 		modal.style.display = "block";
@@ -35,9 +35,9 @@ window.addEventListener("load", function(){
             });
 
             posting.fail(function(data) {
-            	console.log(data);
+                console.log(data);
             	$('#reportForm').hide();
-            	$("#myModal .modal-body").append('<div class="success-msg"><i class="fa fa-check"></i>' + JSON.parse(data).result + '</div>');
+            	$("#myModal .modal-body").append('<div class="error-msg"><i class="fa fa-check"></i>' + JSON.parse(data.responseJSON).result + '</div>');
             });
         });
 	}
@@ -63,7 +63,7 @@ window.addEventListener("load", function(){
 				$('#myModal .modal-body .success-msg').remove();
 				$('#reportForm').show();
 			}
-		
+
 		    modal.style.display = "none";
 		}
 	}

@@ -45,8 +45,8 @@
                     <li>
                         <div class="dropdown">
                             <a href="#">
-                                <?php if(isset($username)): ?>
-                                    <?= h($username); ?>
+                                <?php if(isset($userName)): ?>
+                                    <?= h($userName); ?>
                                 <?php endif; ?>
                             </a>
                             <div class="dropdown-content">
@@ -59,7 +59,7 @@
                     </li>
                     <?php if($loggedIn): ?><li><a href="<?= $this->Url->build(["controller" => "Direct", "action" => "inbox"]); ?>">Messages</a></li><?php endif; ?>
                 </ul>
-            </div>
+            </div>er
         </div>
 
         <div id="main_crumbs" class="wrap">

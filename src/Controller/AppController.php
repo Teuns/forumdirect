@@ -122,7 +122,7 @@ class AppController extends Controller
             }
 
             $this->set('loggedIn', true);
-            $this->set('username', $this->Auth->user('username'));
+            $this->set('userName', $this->Auth->user('username'));
             $this->set('userId', $this->Auth->user('id'));
             $this->set('role', $this->Auth->user('role'));
             $this->set('verified', $this->Auth->user('verified'));
@@ -184,21 +184,30 @@ class AppController extends Controller
             ->newQuery()
             ->select('*')
             ->from('chats')
+            ->where(['from_user_id IS NULL'])
+            ->andWhere(['to_user_id IS NULL'])
             ->order(['created' => 'DESC'])->limit(10);
 
         $chats = $this->Chats->find('all')
             ->contain('Users')
             ->from(['Chats' => $subquery])
             ->where(['from_user_id IS NULL'])
-            ->andWhere(['to_user_id IS NULL'])
-            ->orWhere([
+            ->andWhere(['to_user_id IS NULL'])->order(['Chats.created' => 'ASC']);
+
+        $this->set('chats', $chats);
+
+        $channels = $this->Chats->find('all')
+            ->select(['Users.id', 'Users.username'])
+            ->contain('Users')
+            ->where([
                 ['OR' =>
                     array('from_user_id' => $this->Auth->user('id'),
                         'to_user_id' => $this->Auth->user('id'))
                 ]
-            ])->order(['Chats.created' => 'ASC']);
+            ])
+            ->distinct(['Users.username']);
 
-        $this->set('chats', $chats);
+        $this->set('channels', $channels);
 
         $online_users = $this->Users->find('all')->where(['last_seen > NOW() - INTERVAL 15 MINUTE']);
         $this->set('online_users', $online_users);

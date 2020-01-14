@@ -19,12 +19,16 @@ $client = new Client();
 $client->ascii = true;
 $client->unicodeAlt = true;
 
-function getWhispers($str){
+function getWhispers($str, $userName){
     if (strpos($str, "/whisper") !== false) {
         $username = explode(' ', explode("/whisper", $str)[1])[1];
         $message = explode('/whisper ' . $username, $str)[1];
         if($message && strlen(trim($message))){
-            $str = "<b>Whisper to " . $username . ": </b>" . $message;
+            if ($username !== $userName) {
+                $str = "<b>Whisper to " . $username . ": </b>" . $message;
+            } else {
+                $str = "<b>Whisper: </b>" . $message;
+            }
         }
     }
 
@@ -37,20 +41,36 @@ function getWhispers($str){
         <div class="box">
             <div class="head1">Chatbox</div>
             <div class="box_stuff">
-                <ul id="chatbox">
-                    <?php foreach($chats as $chat): ?>
-                        <li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()"><?= $chat->user->username ?></b>:
-                            <span style="float: right;">
-                                <?php echo $chat->created->format('H:i') ?>
-                            </span>
-                            <p>
-                                <?= getWhispers($client->toImage($this->Text->autoLink($chat->body, array('escape' => true)))) ?>
-                            </p>
-                        </li>
+                <div class="chatbox">
+                    <div class="channels">
+                        <ul id="channels">
+                            <li><a href="#" class="active" onclick="toggleChat(this, 'main'); return false;">Main</a></li>
+                            <?php foreach($channels as $channel): ?>
+                                <li><a href="#" id="channel-<?= $channel->user->username ?>" onclick="toggleChat(this, '<?= $channel->user->username ?>'); return false;"><?= $channel->user->username ?></a></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <ul id="chatbox-main" style="display: block;">
+                        <?php foreach($chats as $chat): ?>
+                            <li><b style="float: left;" onclick="document.getElementById('text').value = '/whisper ' + this.innerText + ' '; document.getElementById('text').focus()"><?= $chat->user->username ?></b>:
+                                <span style="float: right;">
+                                    <?php echo $chat->created->format('H:i') ?>
+                                </span>
+                                <p>
+                                    <?= $client->toImage($this->Text->autoLink($chat->body, array('escape' => true))) ?>
+                                </p>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php foreach($channels as $channel): ?>
+                        <ul id="chatbox-<?= $channel->user->username ?>" style="display: none;">
+                            <?= $this->cell('Chat::getPrivateChats', [$userId, $channel->user->id, $userName]); ?>
+                        </ul>
                     <?php endforeach; ?>
-                </ul>
+                </div>
                 <div class="card-footer bevelled">
                     <div class="form-group">
+                        <input type="text" id="username" class="form-control" value="<?= $userName; ?>" style="display:none">
                         <input type="text" id="session" class="form-control" value="<?= $this->request->session()->id(); ?>" style="display:none">
                     </div>
                     <div class="form-group">
@@ -160,3 +180,52 @@ function getWhispers($str){
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function toggleChat(el, channel)
+    {
+        [].forEach.call(
+            document.querySelectorAll('#channels > li .active'),
+            function (el) {
+                el.classList.remove('active');
+            }
+        );
+
+        el.classList.add("active");
+
+        el.innerText = el.innerText.split(" (+1)")[0];
+
+        if (channel == "main") {
+            document.getElementById('text').value = '';
+            var old_element = document.getElementById("text");
+            var new_element = old_element.cloneNode(true);
+            old_element.parentNode.replaceChild(new_element, old_element);
+        } else {
+            document.getElementById('text').value = '/whisper ' + channel + ' ';
+
+            document.getElementById('text').addEventListener('click', function () {
+                document.getElementById('text').value = '/whisper ' + channel + ' ';
+                document.getElementById('text').focus();
+            });
+        }
+
+        [].forEach.call(
+            document.querySelectorAll('.chatbox ul:not(#chatbox-' + channel + ')'),
+            function (el) {
+                if (el.style.display == "block") {
+                    el.style.display = "none";
+                }
+            }
+        );
+
+        var el = document.getElementById("chatbox-" + channel);
+
+        if (el.style.display !== "block") {
+            el.style.display = "block";
+
+            el.scrollTop = el.scrollHeight;
+        } else {
+            el.style.display = "none";
+        }
+    }
+</script>

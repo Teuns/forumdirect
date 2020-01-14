@@ -52,6 +52,7 @@ class ReportsController extends AppController
                 return $this->response->withType("application/json")->withStringBody(json_encode($result));
             }
             $result = json_encode(array('result' => 'The report could not been saved.'));
+            $this->response->statusCode(403);
             return $this->response->withType("application/json")->withStringBody(json_encode($result));
         }
     }

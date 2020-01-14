@@ -767,6 +767,7 @@ blockquote {
   margin-bottom: 30px;
   font-size: 14px;
   line-height: 1.1;
+  overflow: auto;
 }
 
 .comment-text p {
@@ -835,8 +836,7 @@ blockquote {
 }
 
 .comment-time-stamp {
-  position: absolute;
-  bottom: 5px;
+  position: relative;
   left: 180px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
@@ -957,15 +957,40 @@ blockquote {
   color: white;
 }
 
-#chatbox {
+.chatbox {
+  display: flex;
+}
+
+.channels {
+  order: 1;
+}
+
+#channels {
   list-style: none;
-  height: 300px;
   font-size: 16px;
+}
+
+#channels > li {
+  margin: 20px;
+  width: 100%;
+}
+
+#channels > li .active {
+  color: gray !important;
+}
+
+.chatbox ul:not(#channels) {
+  order: 2;
+  list-style: none;
+  height: 500px;
+  font-size: 16px;
+  width: 100%;
   padding: 1.1rem;
+  padding-top: 0;
   overflow: auto;
 }
 
-#chatbox > li {
+.chatbox ul:not(#channels) > li {
   padding-top: 12px;
 }
 
@@ -988,4 +1013,15 @@ blockquote {
   padding: 1rem;
   background-color: #798189;
   color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .chatbox {
+    flex-direction: column;
+  }
+
+  #channels > li {
+    float: left;
+      width: unset;
+  }
 }

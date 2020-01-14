@@ -59,6 +59,8 @@ class AdminController extends AppController
     {
         $subforum = $this->Subforums->get($id);
 
+        $forums = $this->Forums->find('list');
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subforum = $this->Subforums->patchEntity($subforum, $this->request->getData());
 
@@ -72,6 +74,7 @@ class AdminController extends AppController
         }
 
         $this->set(compact('subforum'));
+        $this->set('forums', $forums);
     }
 
     public function addForum()
@@ -97,6 +100,8 @@ class AdminController extends AppController
     {
         $subforum = $this->Forums->newEntity();
 
+        $forums = $this->Forums->find('list');
+
         if ($this->request->is('post')) {
             $subforum = $this->Forums->patchEntity($subforum, $this->request->getData());
 
@@ -110,6 +115,7 @@ class AdminController extends AppController
         }
 
         $this->set(compact('subforum'));
+        $this->set('forums', $forums);
     }
 
     public function deleteForum($id = null)
