@@ -243,9 +243,12 @@ a:hover {
   height: 40px;
   background-color: #2bcbba;
   line-height: 40px;
-  padding: 0 10px;
+  padding: 0 12px;
   color:#fff;
   font-size: 14px;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .box_stuff {
@@ -764,8 +767,12 @@ blockquote {
   padding-right: 30px;
   margin: 0;
   margin-bottom: 30px;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.1;
+}
+
+.comment-text ul {
+    padding: revert;
 }
 
 .comment-text p {
@@ -873,7 +880,7 @@ blockquote {
 .pagination a {
   color: black;
   float: left;
-  padding: 2px 10px;
+  padding: 10px 15px;
   text-decoration: none;
 }
 
@@ -962,6 +969,7 @@ blockquote {
 
 .channels {
   order: 1;
+  border-right: 1px solid #ccc;
 }
 
 #channels {
@@ -970,7 +978,7 @@ blockquote {
 }
 
 #channels > li {
-  margin: 20px;
+  padding: 27px;
   width: 100%;
 }
 

@@ -81,7 +81,7 @@
             <div class="warning-msg"><i class="fa fa-times-circle"></i> Please verify your account. Contact us if you haven't received the email.</div>
         <?php endif; ?>
         <?php if(!is_null($reports) && $reports->count() && $this->AuthUser->hasRole('mod')): ?>
-            <div class="warning-msg"><i class="fa fa-times-circle"></i> There are reports to be reviewed. Check it in the mod section.</div>
+            <div class="warning-msg"><i class="fa fa-times-circle"></i> There are reports to be reviewed. <a href="<?= $this->Url->build('/mod'); ?>">Check it in the mod section.</a></div>
         <?php endif; ?>
         <?php if(!is_null($direct_messages) && $direct_messages->count()): ?>
             <div class="warning-msg"><i class="fa fa-times-circle"></i> You have received a DM named '<?= $direct_messages->last()->title ?>' from <?= $direct_messages->last()->user->username ?>, click <a href="/direct/view/<?= $direct_messages->last()->direct_id ?>"> here to view it</a></div>
