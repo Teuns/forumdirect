@@ -36,7 +36,7 @@ function getWhispers($str, $userName){
 }
 ?>
 
-<div id="bit-80">
+<div id="bit-70">
     <?php if($loggedIn && !$this->AuthUser->hasRole('banned')): ?>
         <div class="box">
             <div class="head1">Chatbox</div>
@@ -149,9 +149,9 @@ function getWhispers($str, $userName){
     <br />
 </div>
 
-<div id="bit-20">
+<div id="bit-30">
     <div class="box">
-        <div class="head1">Recent Activity</div>
+        <div class="head1">Recent posts</div>
         <div class="box_stuff">
             <ul class="list-recent_activity">
                 <?php $lastElementId = $recent_activity->last()->id ?>

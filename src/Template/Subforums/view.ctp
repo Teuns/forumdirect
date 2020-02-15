@@ -4,7 +4,7 @@
         ['title' => $subforum->title]
     ]);
 ?>
-<div id="bit-80">
+<div id="bit-70">
     <?php $len = count($subforum->threads); ?>
     <div class="head2"><?= $subforum['title']; ?> <?php if($loggedIn): ?><?= $this->Html->link('Add Thread', ['controller' => 'Threads', 'action' => 'add', $subforum->id, $subforum->title], ['class' => 'float-right button']) ?><?php endif; ?></div>
         <div class="catstuff">
@@ -33,9 +33,9 @@
     <br />
 </div>
 
-<div id="bit-20">
+<div id="bit-30">
     <div class="box">
-        <div class="head1">Recent Activity</div>
+        <div class="head1">Recent posts</div>
         <div class="box_stuff">
             <ul class="list-recent_activity">
                 <?php $lastElementId = $recent_activity->last()->id ?>

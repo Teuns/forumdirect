@@ -4,7 +4,7 @@ $this->Breadcrumbs->add([
 ]);
 ?>
 
-<div id="bit-20" class="sidebar-left">
+<div id="bit-30" class="sidebar-left">
     <div class="box">
         <div class="head1">Quick Menu</div>
         <div class="box_stuff">
@@ -21,7 +21,7 @@ $this->Breadcrumbs->add([
     </div>
     <br />
 </div>
-<div id="bit-80">
+<div id="bit-70">
     <?= $this->Form->create($user) ?>
         <h1><?= __('Edit Profile') ?></h1>
     <?= $this->Form->input('username') ?>
