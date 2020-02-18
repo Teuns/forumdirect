@@ -71,6 +71,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/threads/:id-:slug', ['controller' => 'Threads', 'action' => 'view'], ['pass' => ['slug', 'id'], 'id' => '[0-9]+']);
 
+    $routes->connect('/admin/users/edit/:id', ['controller' => 'Admin', 'action' => 'editUser'], ['pass' => ['id'], 'id' => '[0-9]+']);
+
     $routes->connect('/admin/forums/edit/:id', ['controller' => 'Admin', 'action' => 'editForum'], ['pass' => ['id'], 'id' => '[0-9]+']);
 
     $routes->connect('/admin/subforums/edit/:id', ['controller' => 'Admin', 'action' => 'editSubforum'], ['pass' => ['id'], 'id' => '[0-9]+']);

@@ -18,7 +18,6 @@ html {
 
 body {
   font-family: 'Open Sans', sans-serif;
-  background-color: #eaecf0;
   position: relative;
   margin: 0;
   padding: 1rem;
@@ -31,11 +30,11 @@ a:link, a:hover, a:visited {
 }
 
 a {
-  color: #46494e;
+  color: #0275d8;
 }
 
 a:hover {
-  color: #5a9db0;
+  text-decoration: underline;
 }
 
 .wrap {
@@ -79,6 +78,7 @@ a:hover {
 }
 
 #sgnav li a:hover {
+  text-decoration: unset;
   background-color: #dee0e5;
 }
 
@@ -114,12 +114,13 @@ a:hover {
 
 #main_links li a {
   color: #fff;
-  font-size: 14px;
+  font-size: 16px;
   display: block;
   padding: 0 10px;
 }
 
 #main_links li a:hover {
+  text-decoration: unset;
   background-color: #487eb0;
 }
 
@@ -261,20 +262,22 @@ a:hover {
   background-color: #fff;
   padding: 5px 10px;
   font-size: 11px;
-  color: #858585;
+  color: #0a0a0a;
   line-height: 14px;
+  border: 1px solid #eee;
+  border-top: 0;
 }
 
 .head2 {
-    height: 50px;
-    background-color: #40739e;
-    line-height: 50px;
-    padding: 0 10px;
-    color: #fff;
-    font-size: 16px;
-    border-radius: 8px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  height: 50px;
+  background-color: #40739e;
+  line-height: 50px;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 8px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .head2 a {
@@ -284,10 +287,12 @@ a:hover {
 .catstuff {
   background-color: #fff;
   height: 100%;
-  font-size: 12px;
-  color: #858585;
+  font-size: 14px;
+  color: #0a0a0a;
   padding: 0px;
-  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
 }
 
 .catstuff:after {
@@ -391,7 +396,7 @@ input[type=submit]:hover {
 }
 
 button {
-  background: #798189;
+  background: #40739e;
   border: 0;
   padding: 12px;
   color: white;
@@ -425,7 +430,8 @@ button {
 }
 
 .list-recent_activity li {
-  padding: 14px;
+  padding: 24px;
+  font-size: 14px;
 }
 
 .list-forum_information {
@@ -440,11 +446,13 @@ ul.breadcrumb {
   padding: 10px 16px;
   list-style: none;
   background: white;
+  border: 1px solid #eee;
+  border-top: 0;
 }
 
 ul.breadcrumb li {
   display: inline;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 ul.breadcrumb li+li:before {
@@ -466,12 +474,12 @@ ul.breadcrumb li a:hover {
 hr {
   border: none;
   height: 1px;
-  color: #ccc;
-  background-color: #ccc;
+  color: #eee;
+  background-color: #eee;
 }
 
 .vertical-menu {
-  font-size: 14px;
+  font-size: 16px;
   list-style: none;
 }
 
@@ -666,7 +674,7 @@ hr {
 }
 
 .button {
-  background: #333;
+  background: #40739e;
   padding: 10px;
   color: #fff;
   display: inline-block;
@@ -690,7 +698,7 @@ blockquote {
 .success-msg,
 .warning-msg,
 .error-msg {
-  margin: 0 0 10px;
+  margin: 0 0 30px;
   padding: 10px;
   border-radius: 3px 3px 3px 3px;
 }
@@ -753,7 +761,7 @@ blockquote {
 }
 
 .comment-role {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .comment-avatar {
@@ -854,7 +862,7 @@ blockquote {
   font-weight: 300;
   font-size: 16px;
   font-style: italic;
-  font-size: 14px;
+  font-size: 16px;
   color: #a9a9a9;
 }
 
@@ -890,6 +898,7 @@ blockquote {
   margin-right: 15px;
   text-decoration: none;
   background: #fff;
+  border: 1px solid #eee;
 }
 
 .pagination a.active {
@@ -953,7 +962,7 @@ blockquote {
 
 .modal-header {
   padding: 2px 16px;
-  background-color: #798189;
+  background-color: #40739e;
   color: white;
 }
 
@@ -1048,5 +1057,9 @@ blockquote {
   #channels > li {
     float: left;
     width: unset;
+  }
+
+  .footer .wrap {
+    left: 0;
   }
 }

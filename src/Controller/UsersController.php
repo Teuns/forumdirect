@@ -98,18 +98,18 @@ class UsersController extends AppController
 
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
-            if ($this->Users->save($user)) {
-                $roles = TableRegistry::get('roles');
-                $roles_users = TableRegistry::get('roles_users')->query();
-                $roles_users->insert(['user_id', 'role_id'])
-                    ->values([
-                        'user_id' => $user->id,
-                        'role_id' => $roles->find('all')->where(['alias' => 'verify'])->first()->id
-                    ])
-                    ->execute();
-                $user->primary_role = $roles->find('all')->where(['alias' => 'verify'])->first()->id;
+            $roles = TableRegistry::get('roles');
+            $roles_users = TableRegistry::get('roles_users')->query();
+            $roles_users->insert(['user_id', 'role_id'])
+                ->values([
+                    'user_id' => $user->id,
+                    'role_id' => $roles->find('all')->where(['alias' => 'verify'])->first()->id
+                ])
+                ->execute();
+            $user->primary_role = $roles->find('all')->where(['alias' => 'verify'])->first()->id;
 
-                $url = Router::Url(['controller' => 'users', 'action' => 'verify'], true) . '/' . $verifyToken;
+            $url = Router::Url(['controller' => 'users', 'action' => 'verify'], true) . '/' . $verifyToken;
+            if ($this->Users->save($user)) {
                 $this->sendVerifyEmail($url, $user);
                 return $this->redirect(['action' => 'add']);
             }

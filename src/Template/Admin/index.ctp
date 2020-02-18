@@ -6,6 +6,36 @@
 <br/>
 
 <div class="box">
+    <div class="head2">Users</div>
+    <div class="box_stuff">
+        <div style="overflow-x:auto;">
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Primary role</th>
+                    <th>Verified</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach($users as $user): ?>
+                    <tr>
+                        <td><?= $user->id ?></td>
+                        <td><?= $user->username ?></td>
+                        <td><?= $user->email ?></td>
+                        <td><?= $user->primary_role ?></td>
+                        <td><?= $user->verified ? 'yes' : 'no' ?></td>
+                        <td><a href="/admin/users/edit/<?= $user->id ?>">Edit</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+<div class="box">
     <div class="head2">Forums <?= $this->Html->link('Add Forum', ['controller' => 'Admin', 'action' => 'addForum'], ['class' => 'float-right button']) ?></div>
     <div class="box_stuff">
         <div style="overflow-x:auto;">

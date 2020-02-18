@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Admin Controller
@@ -17,6 +18,7 @@ class AdminController extends AppController
 
         $this->loadModel("Forums");
         $this->loadModel("Subforums");
+        $this->loadModel('Users');
         $this->loadComponent('TinyAuth.AuthUser');
     }
 
@@ -27,13 +29,55 @@ class AdminController extends AppController
      */
     public function index()
     {
+        if (is_null($this->Auth->user())) {
+            $this->redirect('/');
+        }
+
         $forums = $this->Forums->find('all');
         $subforums = $this->Subforums->find('all',
             ['join'=> ['Forums' => ['table' => 'forums', 'type' => 'INNER', 'conditions' => 'Forums.id = forum_id']]])
             ->select(['id', 'title', 'forum_title' => 'Forums.title']);
 
+        $users = $this->Users->find('all');
+
+        $this->set('users', $users);
         $this->set('forums', $forums);
         $this->set('subforums', $subforums);
+    }
+
+    public function editUser($userId)
+    {
+        $user = $this->Users->findById($userId)->contain(['roles_users.roles'])->first();
+        $roles_users = TableRegistry::get('roles_users');
+        $result = $roles_users->find('all')->where(['user_id' => $userId])->contain(['roles'])->find('all');
+        $this->set('roles', $result->toArray());
+        if ($this->request->is(['post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->request->getData('primary_role')) {
+                $roles_users = TableRegistry::get('roles_users');
+                $result = $roles_users->find('all')->where(['role_id' => $this->request->getData('primary_role'), 'user_id' => $userId])->count();
+                if ($result) {
+                    $user->primary_role = $this->request->getData('primary_role');
+                }
+            }
+            $roles = TableRegistry::get('roles');
+            if ($this->request->getData('addRole') && $roles->find('all')->where(['alias' => $this->request->getData('role')])->count()) {
+                $roles_users = TableRegistry::get('roles_users')->query();
+                $roles_users->insert(['user_id', 'role_id'])
+                    ->values([
+                        'user_id' => $user->id,
+                        'role_id' => $roles->find('all')->where(['alias' => $this->request->getData('role')])->first()->id
+                    ])
+                    ->execute();
+                $user->primary_role = $roles->find('all')->where(['alias' => $this->request->getData('role')])->first()->id;
+            }
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('An error occurred'));
+        }
+        $this->set('user', $user);
     }
 
     public function editForum($id = null)

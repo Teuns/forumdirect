@@ -44,7 +44,7 @@ function getWhispers($str, $userName){
                 <div class="chatbox">
                     <div class="channels">
                         <ul id="channels">
-                            <li><a href="#" class="active" onclick="toggleChat(this, 'main'); return false;">Main</a></li>
+                            <li><a href="#" class="active" onclick="toggleChat(this, 'main'); return false;">Default</a></li>
                             <?php foreach($channels as $channel): ?>
                                 <li><a href="#" id="channel-<?= $channel->user->username ?>" onclick="toggleChat(this, '<?= $channel->user->username ?>'); return false;"><?= $channel->user->username ?></a></li>
                             <?php endforeach; ?>
