@@ -261,7 +261,7 @@ a:hover {
 .box_stuff {
   background-color: #fff;
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 14px;
   color: #0a0a0a;
   line-height: 14px;
   border: 1px solid #eee;
@@ -334,10 +334,6 @@ a:hover {
 .board_link  a {
   color: #46494e;
   font-weight: 700;
-}
-
-.board_link a:hover {
-  color: rgb(90, 157, 176);
 }
 
 .posts {
@@ -422,7 +418,7 @@ button {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  background-color: #798189;
+  background-color: #487eb0;
 }
 
 .list-recent_activity {
