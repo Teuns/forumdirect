@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "start": "node chatserver.js"
+  },
+  "name": "websocket-chat",
+  "version": "1.0.0",
+  "description": "A simple WebSocket-based chat server.",
+  "dependencies": {
+    "https": "^1.0.0",
+    "ipaddr.js": "^1.8.1",
+    "linkifyjs": "^2.1.8",
+    "mysql": "^2.16.0",
+    "php-unserialize": "0.0.1",
+    "sync-request": "^6.0.0",
+    "websocket": "*",
+    "websockets": "^0.2.0"
+  }
+}

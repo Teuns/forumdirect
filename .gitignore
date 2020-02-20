@@ -41,3 +41,5 @@ nbproject/*
 .sass-cache/
 
 chatserver-forums_app/config.js
+chatserver-forums_app/cert.crt
+chatserver-forums_app/private.key
