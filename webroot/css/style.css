@@ -677,6 +677,7 @@ hr {
   font-size: .8rem;
   border-radius: 3px;
   text-align: center;
+  line-height: 1.1;
 }
 
 .button.small {
@@ -778,7 +779,7 @@ blockquote {
   margin: 0;
   margin-bottom: 30px;
   font-size: 18px;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .comment-text ul {
@@ -991,7 +992,7 @@ blockquote {
 }
 
 #channels > li {
-  padding: 27px;
+  padding: 27px 1.1rem;
   width: 100%;
 }
 
